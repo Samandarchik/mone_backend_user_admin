@@ -4272,5 +4272,31 @@
     "status": "print_error",
     "created": "2025-09-07T17:59:15.555083+05:00",
     "updated": "2025-09-07T17:59:15.81448+05:00"
+  },
+  {
+    "id": 185,
+    "order_id": "25-09-07-7",
+    "user_id": 2,
+    "username": "Test User",
+    "filial_id": 18,
+    "filial_name": "test",
+    "items": [
+      {
+        "product_id": 4,
+        "name": "сосасола 0,5",
+        "count": 4,
+        "subtotal": 0
+      },
+      {
+        "product_id": 26,
+        "name": "sadasd",
+        "count": 3,
+        "subtotal": 0
+      }
+    ],
+    "total": 0,
+    "status": "print_error",
+    "created": "2025-09-07T18:27:54.555426+05:00",
+    "updated": "2025-09-07T18:27:54.817247+05:00"
   }
 ]
