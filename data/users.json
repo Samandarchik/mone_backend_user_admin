@@ -17,14 +17,6 @@
   },
   {
     "id": 3,
-    "name": "John Smith",
-    "phone": "+998907654321",
-    "password": "$2a$12$wceIAfrXTD1pceQfZgAVA.jzaV0ff1mpj.7rbPljD5vFtqo24yiv2",
-    "is_admin": false,
-    "filial_id": 1
-  },
-  {
-    "id": 4,
     "name": "Samandar",
     "phone": "998770451117",
     "password": "$2a$12$6/HDY7Ss0LxW5d.SYVzRXe1mNIeKxs6QcVXLx0w3KNrFd93a4cXla",
