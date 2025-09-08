@@ -34,7 +34,7 @@ COPY --from=builder /app/data ./data
 VOLUME ["/root/data"]
 
 # Portni ochish
-EXPOSE 8080
+EXPOSE 1010
 
 # Serverni ishga tushirish
 CMD ["./main"]

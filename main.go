@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-
 )
 
 func main() {
@@ -73,9 +72,9 @@ func main() {
 	api.HandleFunc("/orders/{id:[0-9]+}", requireAdmin(deleteOrderHandler)).Methods("DELETE", "OPTIONS")
 
 	fmt.Println("✅ Server ishga tushdi!")
-	fmt.Println("📍 URL: http://localhost:8080")
-	fmt.Println("📋 Health check: http://localhost:8080/health")
-	fmt.Println("🔐 API Base URL: http://localhost:8080/api")
+	fmt.Println("📍 URL: http://localhost:1010")
+	fmt.Println("📋 Health check: http://localhost:1010/health")
+	fmt.Println("🔐 API Base URL: http://localhost:1010/api")
 	fmt.Println("📱 CORS: Barcha domenlar uchun ochiq")
 	fmt.Println("")
 	fmt.Println("🔑 Auth Endpoints:")
@@ -98,5 +97,5 @@ func main() {
 	fmt.Println("   📋 Orders: GET, PUT, DELETE /api/orders")
 	fmt.Println("   📊 Orders List: GET /api/orderslist")
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":1010", r))
 }
