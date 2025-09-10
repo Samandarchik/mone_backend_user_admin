@@ -32,7 +32,7 @@ func generateToken(userID uint, phone string, isAdmin bool) (string, error) {
 		Phone:   phone,
 		IsAdmin: isAdmin,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(99999 * time.Day)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 		},
 	}

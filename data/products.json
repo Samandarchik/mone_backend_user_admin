@@ -3,516 +3,2599 @@
     "id": 1,
     "name": "Коробка торт Бенто",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 2,
     "name": "Каробка 24дм 30х30х16",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 3,
     "name": "каробка 25 (18 диам торт)",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 4,
     "name": "каробка 29(22 диам торт)",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 5,
     "name": "каробка 30дм 40х40х20",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 6,
     "name": "каробка 30х30х25",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 7,
     "name": "Коробка для бельгийских вафель",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 8,
     "name": "Коробка для десертов со стак 19,5х21х19,5",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 9,
     "name": "Коробка с окошкомка на 5 прожных. 18х25х10 см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 10,
     "name": "Коробка с окошкомка на 10 прожных. 30х25х10 см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 11,
     "name": "Коробка с окошкомка для эклеров. 14х21х5см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 12,
     "name": "Коробка для выпечки 45х33х9.5",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 13,
     "name": "Коробка для стаканчиков кофе",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 14,
     "name": "Бантовка",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 15,
     "name": "Скотч ширина 6 см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 16,
     "name": "Скотч ширина 1 см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 17,
     "name": "Резинка для денег 1 шт = 40гр",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 18,
     "name": "Ручка",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 19,
     "name": "Блокнот для официанта",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 20,
     "name": "Бумага А4",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 21,
     "name": "Бумага для кипера",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 22,
     "name": "Бумага для терминала",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 23,
     "name": "Визитки",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 24,
     "name": "Зубачистки",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 25,
     "name": "Нисо бумага",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 26,
     "name": "Нисо фольга",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 27,
     "name": "Пакет бумажный 9х25",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 28,
     "name": "Пакет для мусора бол.",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 29,
     "name": "Пакет для мусора мал.",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 30,
     "name": "Пакет полиэтилен Балшой",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 31,
     "name": "Пакет полиэтилен Средний",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 32,
     "name": "Пакет полиэтилен Маленький",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 33,
     "name": "Пакет рулон боль.",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 34,
     "name": "Пакет рулон мал.",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 35,
     "name": "Пергамент Моне средний 28х28",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 36,
     "name": "Пакет для собой 8 х 22",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 37,
     "name": "Салфетки (Селен)",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 38,
     "name": "Салфетки влажные \"Mone\"",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 39,
     "name": "Салфетки диспансер",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 40,
     "name": "Салфетки диспансер Большой",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 41,
     "name": "Салфетки обычные",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 42,
     "name": "Скобы для степлера (патрон)",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 43,
     "name": "Ложка однораз",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 44,
     "name": "Вилка однораз",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 45,
     "name": "Контейнер для супа с собой",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 46,
     "name": "Контейнер из фольги бол.",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 47,
     "name": "Контейнер из фольги мал.",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 48,
     "name": "Соусница с собой",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 49,
     "name": "Стакан бумажный 200мл",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 50,
     "name": "Стакан бумажный 400мл",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 51,
     "name": "Стакан бумажный 500мл",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 52,
     "name": "Стрейч ширина 44 см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 53,
     "name": "Трубочки для кофе 17 см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 54,
     "name": "Трубочки коктейльные 23 см",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 55,
     "name": "Порошок стиральный ручной",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 56,
     "name": "Перчатки в пачке одноразовые",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 57,
     "name": "Мыло для рук жидкое литр",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 58,
     "name": "Мыло-Пена Для Диспенсеров",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 59,
     "name": "Мыло хоз.е",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 60,
     "name": "Гель кг",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 61,
     "name": "Губка",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 62,
     "name": "Вафельная тряпка 1м = 4 шт",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 63,
     "name": "Туалетная бумага (кафе)",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 64,
     "name": "Туалетная бумага персонал",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 65,
     "name": "Cillit Bang",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 66,
     "name": "Тряпка для пола",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 67,
     "name": "Пемо Люкс",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 68,
     "name": "Капсула для унитаза Breff",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 69,
     "name": "Шпашка",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 70,
     "name": "Бахилы",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 71,
     "name": "Сенник - дата бумага",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 72,
     "name": "Батарейки",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 73,
     "name": "Стаканчик для мороженого сред..5,5 х 7",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 74,
     "name": "Тряпка Дельфин",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 75,
     "name": "Губка железная",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 76,
     "name": "Tenzi Gran Smog (казан) пф",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 77,
     "name": "Tenzi Glass (спрей для стёкол) пф",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 78,
     "name": "Сахр пачковый белый",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 79,
     "name": "Ложка МОНЕ 1 пачке 665 шт",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 80,
     "name": "Пакет бумажный с ручкой 26,5х32,5",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 81,
     "name": "Контейнер для шарикового мороженного",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 82,
     "name": "Каробка пицца сиднъ",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 83,
     "name": "Гдралайф капсула",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 84,
     "name": "Аквикс",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 85,
     "name": "Сивича для чая",
     "category_id": 1,
-    "filials": [1, 2, 3, 4]
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": 86,
     "name": "Салярка дивижок",
     "category_id": 1,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Фри пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Картофель по-деревенски пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Кортошка оллади",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Мексика",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Теста для писса Неополетан 200 г",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Теста для писса Американский 300 г",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Говяжий Вырезка",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Контор Филе",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Куриный грудка",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Тефтели для супа пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Фрикоделка пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Болонезе пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Котлеты по домашнему пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Котлеты по киевски пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Стрипсы пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Чечевичный пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Сырники пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Блины пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Каша рисовая пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Каша овсяная пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Рис отварной пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Картофельное пюре (180ГР) пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Гарнир гречка",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Картофель пай пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Спагетти пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Паста Фетучини пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Паста Пене пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Ун оши пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Паутинка пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Сухари пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Начинка для блинчика Пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Мясо для пиццы пф",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Говяжьи бульон",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Куриный бульон",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Отварной Кортошка",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Отварной Морков",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Отварной Свекла",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Борш",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Ши",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Отварной тушка",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Холодный Суп Мастава",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Соус Песто",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Соус Дрессинг",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Соус Цезар",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Соу Тар Тар",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Сахарный Сироп",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Шпинать Дорогой",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Рамано",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Руккола",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Мицуна",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Фенхель",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Кинза",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Укроп",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Салатный Лист",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Лола Росса",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Петрушка Кудрявый",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Айсберг",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Мята",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Базилик",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Шавель",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Сельдерей",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Кабачки",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 63,
+    "name": "Розмарин Свежый",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Какпуста Белый",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Какпуста Красный",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Райхон",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Лук Зелёный",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Шампенёны",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 69,
+    "name": "Вешинки",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 70,
+    "name": "рис Басмати",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Балгарский Перец Дорогой",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Помидоры Черри",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 73,
+    "name": "Помидоры",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Огурцы",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Свекла",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Баклажан",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Брокали",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Лук репчатый",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Лук Красный",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Чеснок Очишенный",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Кортошка",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 82,
+    "name": "Морков Очишенный",
+    "category_id": 2,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Апельсин",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Яблоки",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Лимон",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Мята",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Малина замороженная",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Клубника замороженная",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Гидролайф вода Капсула",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Горячий шоколад Джулиус",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Имбирный фреш п/ф",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Какао Несквик",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Мёд",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Корица молотая (песок)",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Корица палочки 1 шт = 5 гр",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Анис",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Гвоздика",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Сахар",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Сахар пачковый белый",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Сахарозаменитель",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Кофе 3в1",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Кофе зерновой 1пач=1кг",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Кофе растворимый Якобс",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Лёд",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Сливки 10 % для бара (500)",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Взбитые сливки (200-250)",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Молоко 3,2% (пачка) 1 лтир = 1,025 кг",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Орбит",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Бискотти (печенье к кофе) (кг)",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Топпинг Barinoff Шоколадный",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Топпиng Barinoff Карамельный",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Сироп \"Barinoff\" Малиновый",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Сироп \"Barinoff\" Карамель",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Сироп \"Barinoff\" Соленая карамель",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Сироп \"Barinoff\" Лесной орех",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Сироп \"Barinoff\" Шоколад",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Сироп \"Barinoff\" Вишнёвый",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Сироп \"Barinoff\" Ваниль",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Ягодный сироп Maestro",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Сироп Сахрный",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Пюре ягодное",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Чай Пикантная земляника",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Чай Жасминовый рассип.",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Чай Молочный улун",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Чай Earl Grey (бергамот)",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Чай Жасминовый цветок",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Чайный пакетик Tudor Зелёный",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Чайный пакетик Tudor Чёрный",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Чай рассып Зелёный",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Чай рассып Чёрный",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Чебрец",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Шиповник",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Жвачки резинка Orbit \"Сочный арбуз\"",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Жвачки резинка Orbit \"Нежная мята\"",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Жвачки резинка Orbit \"Bubblemint\"",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Жвачки резинка Orbit \"Классический\"",
+    "category_id": 3,
+    "filials": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+
+  {
+    "id": 1,
+    "name": "Кока-кола 0,5л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 2,
+    "name": "Pepsi 0,5л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 3,
+    "name": "Фанта 0,5л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 4,
+    "name": "Спрайт 0,5л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 5,
+    "name": "Кока-кола Ж/Б 0,250л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 6,
+    "name": "Red Bull Ж/Б 0,250л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 7,
+    "name": "Adrenaline Rush Ж/Б 0,250л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 8,
+    "name": "Боржоми 0,5 л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 9,
+    "name": "CHORTOQ 0,33 л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 10,
+    "name": "Чай FuseTea 0,45л (зеленый) Mango va moychechak tamli",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 11,
+    "name": "Чай FuseTea 0,45л (черный) shaftoli tamli",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 12,
+    "name": "Вода \"Hydrolife\" 0,5л без газ",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 13,
+    "name": "Вода \"Hydrolife\" 0,5л газ",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 14,
+    "name": "Соки \"Bliss\" ЭКЗОТИЧЕСКИЙ АНАНАС",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 15,
+    "name": "Соки \"Bliss\" НЕЖНЫЙ ПЕРСИК",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 16,
+    "name": "Соки \"Bliss\" СОЧНОЕ ЯБЛОКО",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 17,
+    "name": "Соки \"Bliss\" БОГАТЫЙ МУЛТИФРУКТ",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 18,
+    "name": "Соки \"Bliss\" СПЕЛАЯ ВИШНЯ",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 19,
+    "name": "Соки \"Bliss\" ТОМАТНЫЙ",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 20,
+    "name": "Сок мини",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 21,
+    "name": "Кока-кола 1л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 22,
+    "name": "Pepsi 1л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 23,
+    "name": "Фанта 1л",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 24,
+    "name": "Вода \"Hydrolife\" 1л газ",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 25,
+    "name": "Вода \"Hydrolife\" 1л без газ",
+    "category_id": 4,
+    "filials": [1, 2, 3, 4]
+  },
+  {
+    "id": 26,
+    "name": "Вода \"Bonaqua\" 0,5 газ",
+    "category_id": 4,
     "filials": [1, 2, 3, 4]
   }
 ]

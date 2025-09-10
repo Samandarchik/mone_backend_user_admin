@@ -6,14 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 )
-
-// Print URL generator
-func generatePrintURL(filialName string, categoryID uint) string {
-	baseURL := fmt.Sprintf("https://%s%d.javohir-jasmina.uz/print", strings.ToLower(filialName), categoryID)
-	return baseURL
-}
 
 // Send order to printer
 func sendToPrinter(order *Order) error {
@@ -44,7 +37,6 @@ func sendToPrinter(order *Order) error {
 
 	// Har bir kategoriya uchun alohida chek yuborish
 	for categoryID, items := range categoryItems {
-		printURL := generatePrintURL(filial.Name, categoryID)
 
 		printRequest := PrinterRequest{
 			Printer:  "p1",
@@ -60,18 +52,18 @@ func sendToPrinter(order *Order) error {
 			continue
 		}
 
-		resp, err := http.Post(printURL, "application/json", bytes.NewBuffer(jsonData))
+		resp, err := http.Post("https://marxabo1.javohir-jasmina.uz/print", "application/json", bytes.NewBuffer(jsonData))
 		if err != nil {
-			log.Printf("Printer ga yuborishda xato (%s): %v", printURL, err)
+			log.Printf("Printer ga yuborishda xato (%s): %v", "https://marxabo1.javohir-jasmina.uz/print", err)
 			allSuccess = false
 			continue
 		}
 		defer resp.Body.Close()
 
 		if resp.StatusCode == 200 {
-			log.Printf("✅ Chek yuborildi: %s (Kategoriya %d) - %s (%s)", printURL, categoryID, order.Username, order.FilialName)
+			log.Printf("✅ Chek yuborildi: %s (Kategoriya %d) - %s (%s)", "https://marxabo1.javohir-jasmina.uz/print", categoryID, order.Username, order.FilialName)
 		} else {
-			log.Printf("❌ Chek yuborishda xato: %s - Status: %d", printURL, resp.StatusCode)
+			log.Printf("❌ Chek yuborishda xato: %s - Status: %d", "https://marxabo1.javohir-jasmina.uz/print", resp.StatusCode)
 			allSuccess = false
 		}
 	}
