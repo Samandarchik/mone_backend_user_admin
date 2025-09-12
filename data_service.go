@@ -434,16 +434,11 @@ func CreateOrder(userID uint, req CreateOrderRequest) (*Order, error) {
 		return nil, fmt.Errorf("filial topilmadi")
 	}
 
-	username := req.Username
-	if username == "" {
-		username = user.Name
-	}
-
 	order := Order{
 		ID:         nextOrderID,
 		OrderID:    generateOrderID(),
 		UserID:     userID,
-		Username:   username,
+		Username:   user.Name,
 		FilialID:   user.FilialID,
 		FilialName: filial.Name,
 		Items:      []OrderItem{},

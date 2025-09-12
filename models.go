@@ -117,8 +117,7 @@ type UpdateUserRequest struct {
 }
 
 type CreateOrderRequest struct {
-	Username string            `json:"username"`
-	Filial   string            `json:"filial"`
+	// Filial   string            `json:"filial"`
 	Items    []CreateOrderItem `json:"items"`
 }
 
@@ -134,10 +133,10 @@ type UpdateOrderRequest struct {
 type PrinterRequest struct {
 	Printer  string        `json:"printer"`
 	Username string        `json:"username"`
+	OrderID  string        `json:"order_id"`
 	Filial   string        `json:"filial"`
 	Items    []PrinterItem `json:"items"`
 }
-
 type PrinterItem struct {
 	Product string `json:"product"`
 	Count   int    `json:"count"`
