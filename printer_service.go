@@ -40,7 +40,7 @@ func sendToPrinter(order *Order) error {
 
 		printRequest := PrinterRequest{
 			Printer:  "p1",
-			OrderID: order.OrderID,
+			OrderID:  order.OrderID,
 			Username: order.Username,
 			Filial:   order.FilialName,
 			Items:    items,
@@ -53,18 +53,18 @@ func sendToPrinter(order *Order) error {
 			continue
 		}
 
-		resp, err := http.Post("http://192.168.1.12:5000/print", "application/json", bytes.NewBuffer(jsonData))
+		resp, err := http.Post("https://marxabo1.javohir-jasmina.uz/print", "application/json", bytes.NewBuffer(jsonData))
 		if err != nil {
-			log.Printf("Printer ga yuborishda xato (%s): %v", "http://192.168.1.12:5000/print", err)
+			log.Printf("Printer ga yuborishda xato (%s): %v", "https://marxabo1.javohir-jasmina.uz/print", err)
 			allSuccess = false
 			continue
 		}
 		defer resp.Body.Close()
 
 		if resp.StatusCode == 200 {
-			log.Printf("✅ Chek yuborildi: %s (Kategoriya %d) - %s (%s)", "http://192.168.1.12:5000/print", categoryID, order.Username, order.FilialName)
+			log.Printf("✅ Chek yuborildi: %s (Kategoriya %d) - %s (%s)", "https://marxabo1.javohir-jasmina.uz/print", categoryID, order.Username, order.FilialName)
 		} else {
-			log.Printf("❌ Chek yuborishda xato: %s - Status: %d", "http://192.168.1.12:5000/print", resp.StatusCode)
+			log.Printf("❌ Chek yuborishda xato: %s - Status: %d", "https://marxabo1.javohir-jasmina.uz/print", resp.StatusCode)
 			allSuccess = false
 		}
 	}
