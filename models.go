@@ -176,6 +176,7 @@ type GroupedProductsResponse struct {
 
 type ProductSimple struct {
 	ID   uint   `json:"id"`
+	Type string `json:"type"`
 	Name string `json:"name"`
 }
 
@@ -183,6 +184,7 @@ type ProductDetails struct {
 	ID           uint     `json:"id"`
 	Name         string   `json:"name"`
 	CategoryID   uint     `json:"category_id"`
+	Type         string   `json:"type"`
 	CategoryName string   `json:"category_name"`
 	Filials      []uint   `json:"filials"`
 	FilialNames  []string `json:"filial_names"`

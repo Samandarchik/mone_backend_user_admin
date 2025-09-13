@@ -477,6 +477,7 @@ func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 
 		groupedData[categoryName] = append(groupedData[categoryName], ProductSimple{
 			ID:   product.ID,
+			Type: product.Type,
 			Name: product.Name,
 		})
 	}
