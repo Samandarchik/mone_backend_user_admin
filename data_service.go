@@ -343,6 +343,7 @@ func UpdateProduct(id uint, req UpdateProductRequest) *Product {
 		return nil
 	}
 	product.Name = req.Name
+	product.Type = req.Type
 	product.CategoryID = req.CategoryID
 	product.Filials = req.Filials
 	saveProducts()
@@ -475,8 +476,8 @@ func CreateOrder(userID uint, req CreateOrderRequest) (*Order, error) {
 		orderItem := OrderItem{
 			ProductID: reqItem.ProductID,
 			Name:      product.Name,
+			Type:      product.Type,
 			Count:     reqItem.Count,
-			Type:      reqItem.Type,   
 		}
 
 		order.Items = append(order.Items, orderItem)

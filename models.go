@@ -104,6 +104,7 @@ type AddProductRequest struct {
 
 type UpdateProductRequest struct {
 	Name       string `json:"name"`
+	Type       string `json:"type"`
 	CategoryID uint   `json:"category_id"`
 	Filials    []uint `json:"filials"`
 }
@@ -126,7 +127,6 @@ type CreateOrderRequest struct {
 type CreateOrderItem struct {
 	ProductID uint   `json:"product_id"`
 	Count     int    `json:"count"`
-	Type      string `json:"type"`
 }
 
 type UpdateOrderRequest struct {
