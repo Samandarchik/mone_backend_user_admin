@@ -504,6 +504,7 @@ func getAllProductsHandler(w http.ResponseWriter, r *http.Request) {
 		details := ProductDetails{
 			ID:          product.ID,
 			Name:        product.Name,
+			Type:        product.Type,
 			CategoryID:  product.CategoryID,
 			Filials:     product.Filials,
 			FilialNames: []string{},
