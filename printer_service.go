@@ -41,6 +41,7 @@ func sendToPrinter(order *Order) error {
 		printRequest := PrinterRequest{
 			Printer:  "p1",
 			OrderID:  order.OrderID,
+			Category: GetCategoryByID(categoryID).Name,
 			Username: order.Username,
 			Filial:   order.FilialName,
 			Items:    items,
