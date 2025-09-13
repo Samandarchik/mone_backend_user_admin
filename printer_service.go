@@ -29,6 +29,7 @@ func sendToPrinter(order *Order) error {
 			categoryItems[product.CategoryID] = append(categoryItems[product.CategoryID], PrinterItem{
 				Product: item.Name,
 				Count:   item.Count,
+				Type:    item.Type, // OrderItem dan Type ni olish
 			})
 		}
 	}
@@ -37,11 +38,16 @@ func sendToPrinter(order *Order) error {
 
 	// Har bir kategoriya uchun alohida chek yuborish
 	for categoryID, items := range categoryItems {
+		category := GetCategoryByID(categoryID)
+		if category == nil {
+			log.Printf("Kategoriya topilmadi: %d", categoryID)
+			continue
+		}
 
 		printRequest := PrinterRequest{
 			Printer:  "p1",
 			OrderID:  order.OrderID,
-			Category: GetCategoryByID(categoryID).Name,
+			Category: category.Name,
 			Username: order.Username,
 			Filial:   order.FilialName,
 			Items:    items,
@@ -54,18 +60,18 @@ func sendToPrinter(order *Order) error {
 			continue
 		}
 
-		resp, err := http.Post("https://marxabo1.javohir-jasmina.uz/print", "application/json", bytes.NewBuffer(jsonData))
+		resp, err := http.Post("http://127.0.0.1:8000/print", "application/json", bytes.NewBuffer(jsonData))
 		if err != nil {
-			log.Printf("Printer ga yuborishda xato (%s): %v", "https://marxabo1.javohir-jasmina.uz/print", err)
+			log.Printf("Printer ga yuborishda xato (%s): %v", "http://127.0.0.1:8000/print", err)
 			allSuccess = false
 			continue
 		}
 		defer resp.Body.Close()
 
 		if resp.StatusCode == 200 {
-			log.Printf("✅ Chek yuborildi: %s (Kategoriya %d) - %s (%s)", "https://marxabo1.javohir-jasmina.uz/print", categoryID, order.Username, order.FilialName)
+			log.Printf("✅ Chek yuborildi: %s (Kategoriya %d) - %s (%s)", "http://127.0.0.1:8000/print", categoryID, order.Username, order.FilialName)
 		} else {
-			log.Printf("❌ Chek yuborishda xato: %s - Status: %d", "https://marxabo1.javohir-jasmina.uz/print", resp.StatusCode)
+			log.Printf("❌ Chek yuborishda xato: %s - Status: %d", "http://127.0.0.1:8000/print", resp.StatusCode)
 			allSuccess = false
 		}
 	}

@@ -39,6 +39,7 @@ type Product struct {
 	ID         uint   `json:"id"`
 	Name       string `json:"name"`
 	CategoryID uint   `json:"category_id"`
+	Type       string `json:"type"`
 	Filials    []uint `json:"filials"`
 }
 
@@ -60,6 +61,7 @@ type OrderItem struct {
 	ProductID uint    `json:"product_id"`
 	Name      string  `json:"name"`
 	Count     int     `json:"count"`
+	Type      string  `json:"type"`
 	Subtotal  float64 `json:"subtotal"`
 }
 
@@ -96,6 +98,7 @@ type UpdateCategoryRequest struct {
 type AddProductRequest struct {
 	Name       string `json:"name"`
 	CategoryID uint   `json:"category_id"`
+	Type       string `json:"type"`
 	Filials    []uint `json:"filials"`
 }
 
@@ -117,13 +120,13 @@ type UpdateUserRequest struct {
 }
 
 type CreateOrderRequest struct {
-	// Filial   string            `json:"filial"`
 	Items []CreateOrderItem `json:"items"`
 }
 
 type CreateOrderItem struct {
-	ProductID uint `json:"product_id"`
-	Count     int  `json:"count"`
+	ProductID uint   `json:"product_id"`
+	Count     int    `json:"count"`
+	Type      string `json:"type"`
 }
 
 type UpdateOrderRequest struct {
@@ -134,6 +137,7 @@ type PrinterRequest struct {
 	Printer  string        `json:"printer"`
 	Category string        `json:"category"`
 	Username string        `json:"username"`
+	Type     string        `json:"type"`
 	OrderID  string        `json:"order_id"`
 	Filial   string        `json:"filial"`
 	Items    []PrinterItem `json:"items"`
@@ -141,6 +145,7 @@ type PrinterRequest struct {
 type PrinterItem struct {
 	Product string `json:"product"`
 	Count   int    `json:"count"`
+	Type    string `json:"type"`
 }
 
 // Response structs

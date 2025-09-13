@@ -319,6 +319,7 @@ func CreateProduct(req AddProductRequest) Product {
 	product := Product{
 		ID:         nextProductID,
 		Name:       req.Name,
+		Type:       req.Type,
 		CategoryID: req.CategoryID,
 		Filials:    req.Filials,
 	}
@@ -475,6 +476,7 @@ func CreateOrder(userID uint, req CreateOrderRequest) (*Order, error) {
 			ProductID: reqItem.ProductID,
 			Name:      product.Name,
 			Count:     reqItem.Count,
+			Type:      reqItem.Type,   
 		}
 
 		order.Items = append(order.Items, orderItem)
