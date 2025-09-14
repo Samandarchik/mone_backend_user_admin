@@ -387,12 +387,15 @@ func GetUserByID(id uint) *User {
 }
 
 func UpdateUser(id uint, req UpdateUserRequest) *User {
+	hashedPassword, _ := hashPassword(req.Password)
+
 	user := findUserByID(id)
 	if user == nil {
 		return nil
 	}
 	user.Name = req.Name
 	user.Phone = req.Phone
+	user.Password = hashedPassword
 	user.IsAdmin = req.IsAdmin
 	user.FilialID = req.FilialID
 	saveUsers()

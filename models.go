@@ -118,6 +118,7 @@ type UpdateUserRequest struct {
 	Phone    string `json:"phone"`
 	IsAdmin  bool   `json:"is_admin"`
 	FilialID uint   `json:"filial_id"`
+	Password string `json:"password"`
 }
 
 type CreateOrderRequest struct {
