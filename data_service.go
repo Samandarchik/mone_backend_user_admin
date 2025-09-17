@@ -370,7 +370,7 @@ func CreateUser(req RegisterUserRequest) User {
 		Phone:    req.Phone,
 		Password: hashedPassword,
 		IsAdmin:  false,
-		FilialID: 0,
+		FilialID: uint(req.FilialID),
 	}
 	users = append(users, user)
 	nextUserID++

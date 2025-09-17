@@ -75,6 +75,7 @@ type RegisterUserRequest struct {
 	Name     string `json:"name"`
 	Phone    string `json:"phone"`
 	Password string `json:"password"`
+	FilialID uint   `json:"filial_id"`
 }
 
 type AddFilialRequest struct {
@@ -126,8 +127,8 @@ type CreateOrderRequest struct {
 }
 
 type CreateOrderItem struct {
-	ProductID uint   `json:"product_id"`
-	Count     int    `json:"count"`
+	ProductID uint `json:"product_id"`
+	Count     int  `json:"count"`
 }
 
 type UpdateOrderRequest struct {

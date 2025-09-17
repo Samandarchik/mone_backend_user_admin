@@ -112,6 +112,15 @@ func register(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	if req.FilialID == 0 {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(Response{
+			Success: false,
+			Message: "Filial ID majburiy, null bo‘lishi mumkin emas",
+		})
+		return
+	}
 
 	user := CreateUser(req)
 	token, _ := generateToken(user.ID, user.Phone, user.IsAdmin)
@@ -128,6 +137,7 @@ func register(w http.ResponseWriter, r *http.Request) {
 				Name:    user.Name,
 				Phone:   user.Phone,
 				IsAdmin: user.IsAdmin,
+				Filial:  *findFilialByID(user.FilialID),
 			},
 		},
 	})
