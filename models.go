@@ -27,12 +27,13 @@ type Category struct {
 }
 
 type User struct {
-	ID       uint   `json:"id"`
-	Name     string `json:"name"`
-	Phone    string `json:"phone"`
-	Password string `json:"password"`
-	IsAdmin  bool   `json:"is_admin"`
-	FilialID uint   `json:"filial_id"`
+	ID         uint   `json:"id"`
+	Name       string `json:"name"`
+	Phone      string `json:"phone"`
+	Password   string `json:"password"`
+	IsAdmin    bool   `json:"is_admin"`
+	FilialID   uint   `json:"filial_id"`
+	CategoryID []uint `json:"category_list"`
 }
 
 type Product struct {
@@ -72,10 +73,11 @@ type LoginRequest struct {
 }
 
 type RegisterUserRequest struct {
-	Name     string `json:"name"`
-	Phone    string `json:"phone"`
-	Password string `json:"password"`
-	FilialID uint   `json:"filial_id"`
+	Name       string `json:"name"`
+	Phone      string `json:"phone"`
+	Password   string `json:"password"`
+	FilialID   uint   `json:"filial_id"`
+	CategoryID []uint `json:"category_list"`
 }
 
 type AddFilialRequest struct {
@@ -115,11 +117,12 @@ type AssignFilialRequest struct {
 }
 
 type UpdateUserRequest struct {
-	Name     string `json:"name"`
-	Phone    string `json:"phone"`
-	IsAdmin  bool   `json:"is_admin"`
-	FilialID uint   `json:"filial_id"`
-	Password string `json:"password"`
+	Name       string `json:"name"`
+	Phone      string `json:"phone"`
+	IsAdmin    bool   `json:"is_admin"`
+	FilialID   uint   `json:"filial_id"`
+	Password   string `json:"password"`
+	CategoryID []uint `json:"category_list"`
 }
 
 type CreateOrderRequest struct {

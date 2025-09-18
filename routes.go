@@ -24,9 +24,141 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 			"users":      len(users),
 			"products":   len(products),
 			"orders":     len(orders),
+			"categoryItems": len(categoryItems), 
 		},
 	})
 }
+
+// ================= CATEGORY ITEMS ROUTES =================
+
+// GET /api/category-items
+func getCategoryItemsHandler(w http.ResponseWriter, r *http.Request) {
+	items := GetAllCategoryItems()
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Response{
+		Success: true,
+		Message: "Category Items",
+		Data:    items,
+	})
+}
+
+// GET /api/category-items/{id}
+func getCategoryItemHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(w, "Invalid category item ID", http.StatusBadRequest)
+		return
+	}
+
+	item := GetCategoryItemByID(uint(id))
+	if item == nil {
+		http.Error(w, "Category item not found", http.StatusNotFound)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Response{
+		Success: true,
+		Message: "Category Item",
+		Data:    item,
+	})
+}
+
+// GET /api/categories/{id}/items
+func getCategoryItemsByCategoryHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	categoryID, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(w, "Invalid category ID", http.StatusBadRequest)
+		return
+	}
+
+	items := GetCategoryItemsByCategoryID(uint(categoryID))
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Response{
+		Success: true,
+		Message: "Category Items by Category",
+		Data:    items,
+	})
+}
+
+// POST /api/category-items
+func addCategoryItemHandler(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		CategoryID uint   `json:"category_id"`
+		Name       string `json:"name"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	item := CreateCategoryItem(req.CategoryID, req.Name)
+	if item == nil {
+		http.Error(w, "Category not found", http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Response{
+		Success: true,
+		Message: "Category Item qo'shildi",
+		Data:    item,
+	})
+}
+
+// PUT /api/category-items/{id}
+func updateCategoryItemHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(w, "Invalid category item ID", http.StatusBadRequest)
+		return
+	}
+
+	var req struct {
+		Name string `json:"name"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	item := UpdateCategoryItem(uint(id), req.Name)
+	if item == nil {
+		http.Error(w, "Category item not found", http.StatusNotFound)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Response{
+		Success: true,
+		Message: "Category Item yangilandi",
+		Data:    item,
+	})
+}
+
+// DELETE /api/category-items/{id}
+func deleteCategoryItemHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(w, "Invalid category item ID", http.StatusBadRequest)
+		return
+	}
+
+	if DeleteCategoryItem(uint(id)) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(Response{
+			Success: true,
+			Message: "Category Item o'chirildi",
+		})
+	} else {
+		http.Error(w, "Category item not found", http.StatusNotFound)
+	}
+}
+
 
 // ================= AUTH ROUTES =================
 
@@ -440,70 +572,82 @@ func deleteCategoryHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // ================= PRODUCTS ROUTES =================
-
-// GET /api/products (User uchun o'z filialidagi mahsulotlar)
+// GET /api/products (User uchun o'z filialidagi mahsulotlar va ruxsat etilgan kategoriyalar bo'yicha)
 func getProductsHandler(w http.ResponseWriter, r *http.Request) {
-	userIDStr := r.Header.Get("User-ID")
-	userID, _ := strconv.Atoi(userIDStr)
+    userIDStr := r.Header.Get("User-ID")
+    userID, _ := strconv.Atoi(userIDStr)
 
-	user := findUserByID(uint(userID))
-	if user == nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(Response{
-			Success: false,
-			Message: "User topilmadi",
-		})
-		return
-	}
+    user := findUserByID(uint(userID))
+    if user == nil {
+        w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(http.StatusNotFound)
+        json.NewEncoder(w).Encode(Response{
+            Success: false,
+            Message: "User topilmadi",
+        })
+        return
+    }
 
-	if user.FilialID == 0 {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(GroupedProductsResponse{
-			Success: false,
-			Message: "Sizga filial belgilanmagan",
-			Data:    make(map[string][]ProductSimple),
-		})
-		return
-	}
+    if user.FilialID == 0 {
+        w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(http.StatusBadRequest)
+        json.NewEncoder(w).Encode(GroupedProductsResponse{
+            Success: false,
+            Message: "Sizga filial belgilanmagan",
+            Data:    make(map[string][]ProductSimple),
+        })
+        return
+    }
 
-	var filteredProducts []Product
-	for _, product := range products {
-		for _, fId := range product.Filials {
-			if fId == user.FilialID {
-				filteredProducts = append(filteredProducts, product)
-				break
-			}
-		}
-	}
+    // 1️⃣ Ruxsat etilgan kategoriyalarni set (map) qilib olamiz
+    allowedCategories := make(map[uint]bool)
+    for _, catID := range user.CategoryID { // masalan, []uint{1,3,5}
+        allowedCategories[catID] = true
+    }
 
-	groupedData := make(map[string][]ProductSimple)
-	for _, product := range filteredProducts {
-		categoryName := "Unknown"
-		if category := findCategoryByID(product.CategoryID); category != nil {
-			categoryName = category.Name
-		}
+    var filteredProducts []Product
+    for _, product := range products {
+        // Avvalo filial bo‘yicha filterlaymiz
+        for _, fId := range product.Filials {
+            if fId == user.FilialID {
+                // 2️⃣ Shu mahsulot kategoriyasi ruxsat etilganmi tekshiramiz
+                if len(allowedCategories) > 0 && !allowedCategories[product.CategoryID] {
+                    // Ruxsat yo‘q — bu mahsulotni o‘tkazib yuboramiz
+                    continue
+                }
 
-		groupedData[categoryName] = append(groupedData[categoryName], ProductSimple{
-			ID:   product.ID,
-			Type: product.Type,
-			Name: product.Name,
-		})
-	}
+                filteredProducts = append(filteredProducts, product)
+                break
+            }
+        }
+    }
 
-	message := "Mahsulotlar olindi"
-	if filial := findFilialByID(user.FilialID); filial != nil {
-		message = fmt.Sprintf("%s filiali mahsulotlari", filial.Name)
-	}
+    groupedData := make(map[string][]ProductSimple)
+    for _, product := range filteredProducts {
+        categoryName := "Unknown"
+        if category := findCategoryByID(product.CategoryID); category != nil {
+            categoryName = category.Name
+        }
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(GroupedProductsResponse{
-		Success: true,
-		Message: message,
-		Data:    groupedData,
-	})
+        groupedData[categoryName] = append(groupedData[categoryName], ProductSimple{
+            ID:   product.ID,
+            Type: product.Type,
+            Name: product.Name,
+        })
+    }
+
+    message := "Mahsulotlar olindi"
+    if filial := findFilialByID(user.FilialID); filial != nil {
+        message = fmt.Sprintf("%s filiali mahsulotlari", filial.Name)
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusOK)
+    json.NewEncoder(w).Encode(GroupedProductsResponse{
+        Success: true,
+        Message: message,
+        Data:    groupedData,
+    })
 }
 
 // GET /api/products/all (Admin uchun barcha mahsulotlar)

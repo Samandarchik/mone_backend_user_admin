@@ -71,6 +71,15 @@ func main() {
 	api.HandleFunc("/orders/{id:[0-9]+}", requireAdmin(updateOrderHandler)).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/orders/{id:[0-9]+}", requireAdmin(deleteOrderHandler)).Methods("DELETE", "OPTIONS")
 
+	// Category Items management
+	api.HandleFunc("/category-items", requireAdmin(getCategoryItemsHandler)).Methods("GET", "OPTIONS")
+	api.HandleFunc("/category-items/{id:[0-9]+}", requireAdmin(getCategoryItemHandler)).Methods("GET", "OPTIONS")
+	api.HandleFunc("/categories/{id:[0-9]+}/items", authenticateJWT(getCategoryItemsByCategoryHandler)).Methods("GET", "OPTIONS")
+
+	api.HandleFunc("/category-items", requireAdmin(addCategoryItemHandler)).Methods("POST", "OPTIONS")
+	api.HandleFunc("/category-items/{id:[0-9]+}", requireAdmin(updateCategoryItemHandler)).Methods("PUT", "OPTIONS")
+	api.HandleFunc("/category-items/{id:[0-9]+}", requireAdmin(deleteCategoryItemHandler)).Methods("DELETE", "OPTIONS")
+
 	fmt.Println("✅ Server ishga tushdi!")
 	fmt.Println("📍 URL: http://localhost:1010")
 	fmt.Println("📋 Health check: http://localhost:1010/health")

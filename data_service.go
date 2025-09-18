@@ -10,6 +10,19 @@ import (
 	"time"
 )
 
+type CategoryItem struct {
+	ID         uint   `json:"id"`
+	CategoryID uint   `json:"category_id"`
+	Name       string `json:"name"`
+}
+
+var (
+	categoryItems      []CategoryItem
+	nextCategoryItemID uint = 1
+)
+
+const categoryItemsFile = "data/category_items.json"
+
 // Global data
 var (
 	filials    []Filial
@@ -51,10 +64,12 @@ func loadData() {
 	loadUsers()
 	loadProducts()
 	loadOrders()
+	loadCategoryItems()
 
 	fmt.Printf("✅ Ma'lumotlar yuklandi:\n")
 	fmt.Printf("   📍 Filiallar: %d ta\n", len(filials))
 	fmt.Printf("   📂 Kategoriyalar: %d ta\n", len(categories))
+	fmt.Printf("   📂 CategoryItems: %d ta\n", len(categoryItems))
 	fmt.Printf("   👥 Userlar: %d ta\n", len(users))
 	fmt.Printf("   📦 Mahsulotlar: %d ta\n", len(products))
 	fmt.Printf("   📋 Orderlar: %d ta\n", len(orders))
@@ -361,16 +376,108 @@ func DeleteProduct(id uint) bool {
 	return false
 }
 
+// ================= CATEGORY ITEMS =================
+func loadCategoryItems() {
+	if data, err := ioutil.ReadFile(categoryItemsFile); err == nil {
+		json.Unmarshal(data, &categoryItems)
+		for _, ci := range categoryItems {
+			if ci.ID >= nextCategoryItemID {
+				nextCategoryItemID = ci.ID + 1
+			}
+		}
+	}
+}
+
+func saveCategoryItems() {
+	data, _ := json.MarshalIndent(categoryItems, "", "  ")
+	ioutil.WriteFile(categoryItemsFile, data, 0644)
+}
+
+// --- Helpers ---
+func findCategoryItemByID(id uint) *CategoryItem {
+	for i, ci := range categoryItems {
+		if ci.ID == id {
+			return &categoryItems[i]
+		}
+	}
+	return nil
+}
+
+// --- CRUD ---
+// Create
+func CreateCategoryItem(categoryID uint, name string) *CategoryItem {
+	// category mavjudligini tekshiramiz
+	if findCategoryByID(categoryID) == nil {
+		fmt.Println("❌ Bunday category mavjud emas")
+		return nil
+	}
+
+	item := CategoryItem{
+		ID:         nextCategoryItemID,
+		CategoryID: categoryID,
+		Name:       name,
+	}
+	categoryItems = append(categoryItems, item)
+	nextCategoryItemID++
+	saveCategoryItems()
+	return &item
+}
+
+// Get all
+func GetAllCategoryItems() []CategoryItem {
+	return categoryItems
+}
+
+// Get by ID
+func GetCategoryItemByID(id uint) *CategoryItem {
+	return findCategoryItemByID(id)
+}
+
+// Get by CategoryID
+func GetCategoryItemsByCategoryID(categoryID uint) []CategoryItem {
+	var items []CategoryItem
+	for _, ci := range categoryItems {
+		if ci.CategoryID == categoryID {
+			items = append(items, ci)
+		}
+	}
+	return items
+}
+
+// Update
+func UpdateCategoryItem(id uint, newName string) *CategoryItem {
+	item := findCategoryItemByID(id)
+	if item == nil {
+		return nil
+	}
+	item.Name = newName
+	saveCategoryItems()
+	return item
+}
+
+// Delete
+func DeleteCategoryItem(id uint) bool {
+	for i, ci := range categoryItems {
+		if ci.ID == id {
+			categoryItems = append(categoryItems[:i], categoryItems[i+1:]...)
+			saveCategoryItems()
+			return true
+		}
+	}
+	return false
+}
+
 // ============= USERS =============
 func CreateUser(req RegisterUserRequest) User {
 	hashedPassword, _ := hashPassword(req.Password)
 	user := User{
-		ID:       nextUserID,
-		Name:     req.Name,
-		Phone:    req.Phone,
-		Password: hashedPassword,
-		IsAdmin:  false,
-		FilialID: uint(req.FilialID),
+		ID:         nextUserID,
+		Name:       req.Name,
+		Phone:      req.Phone,
+		CategoryID: req.CategoryID,
+		Password:   hashedPassword,
+		IsAdmin:    false,
+		FilialID:   uint(req.FilialID),
 	}
 	users = append(users, user)
 	nextUserID++
@@ -395,6 +502,7 @@ func UpdateUser(id uint, req UpdateUserRequest) *User {
 	}
 	user.Name = req.Name
 	user.Phone = req.Phone
+	user.CategoryID = req.CategoryID
 	user.Password = hashedPassword
 	user.IsAdmin = req.IsAdmin
 	user.FilialID = req.FilialID
