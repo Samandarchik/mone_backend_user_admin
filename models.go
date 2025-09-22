@@ -117,12 +117,12 @@ type AssignFilialRequest struct {
 }
 
 type UpdateUserRequest struct {
-	Name       string `json:"name"`
-	Phone      string `json:"phone"`
-	IsAdmin    bool   `json:"is_admin"`
-	FilialID   uint   `json:"filial_id"`
-	Password   string `json:"password"`
-	CategoryID []uint `json:"category_list"`
+	Name       *string `json:"name"`
+	Phone      *string `json:"phone"`
+	IsAdmin    *bool   `json:"is_admin"`
+	FilialID   *uint   `json:"filial_id"`
+	Password   *string `json:"password"`
+	CategoryID *[]uint `json:"category_list"`
 }
 
 type CreateOrderRequest struct {
@@ -142,7 +142,6 @@ type PrinterRequest struct {
 	Printer  string        `json:"printer"`
 	Category string        `json:"category"`
 	Username string        `json:"username"`
-	Type     string        `json:"type"`
 	OrderID  string        `json:"order_id"`
 	Filial   string        `json:"filial"`
 	Items    []PrinterItem `json:"items"`

@@ -18,13 +18,13 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 		Success: true,
 		Message: "Server ishlamoqda",
 		Data: map[string]interface{}{
-			"time":       time.Now().Format(time.RFC3339),
-			"filials":    len(filials),
-			"categories": len(categories),
-			"users":      len(users),
-			"products":   len(products),
-			"orders":     len(orders),
-			"categoryItems": len(categoryItems), 
+			"time":          time.Now().Format(time.RFC3339),
+			"filials":       len(filials),
+			"categories":    len(categories),
+			"users":         len(users),
+			"products":      len(products),
+			"orders":        len(orders),
+			"categoryItems": len(categoryItems),
 		},
 	})
 }
@@ -158,7 +158,6 @@ func deleteCategoryItemHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Category item not found", http.StatusNotFound)
 	}
 }
-
 
 // ================= AUTH ROUTES =================
 
@@ -574,80 +573,82 @@ func deleteCategoryHandler(w http.ResponseWriter, r *http.Request) {
 // ================= PRODUCTS ROUTES =================
 // GET /api/products (User uchun o'z filialidagi mahsulotlar va ruxsat etilgan kategoriyalar bo'yicha)
 func getProductsHandler(w http.ResponseWriter, r *http.Request) {
-    userIDStr := r.Header.Get("User-ID")
-    userID, _ := strconv.Atoi(userIDStr)
+	userIDStr := r.Header.Get("User-ID")
+	userID, _ := strconv.Atoi(userIDStr)
 
-    user := findUserByID(uint(userID))
-    if user == nil {
-        w.Header().Set("Content-Type", "application/json")
-        w.WriteHeader(http.StatusNotFound)
-        json.NewEncoder(w).Encode(Response{
-            Success: false,
-            Message: "User topilmadi",
-        })
-        return
-    }
+	user := findUserByID(uint(userID))
+	if user == nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(Response{
+			Success: false,
+			Message: "User topilmadi",
+		})
+		return
+	}
 
-    if user.FilialID == 0 {
-        w.Header().Set("Content-Type", "application/json")
-        w.WriteHeader(http.StatusBadRequest)
-        json.NewEncoder(w).Encode(GroupedProductsResponse{
-            Success: false,
-            Message: "Sizga filial belgilanmagan",
-            Data:    make(map[string][]ProductSimple),
-        })
-        return
-    }
+	if user.FilialID == 0 {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(GroupedProductsResponse{
+			Success: false,
+			Message: "Sizga filial belgilanmagan",
+			Data:    make(map[string][]ProductSimple),
+		})
+		return
+	}
 
-    // 1️⃣ Ruxsat etilgan kategoriyalarni set (map) qilib olamiz
-    allowedCategories := make(map[uint]bool)
-    for _, catID := range user.CategoryID { // masalan, []uint{1,3,5}
-        allowedCategories[catID] = true
-    }
+	// 1️⃣ Ruxsat etilgan kategoriyalarni set (map) qilib olamiz
+	allowedCategories := make(map[uint]bool)
+	for _, catID := range user.CategoryID { // masalan, []uint{1,3,5}
+		allowedCategories[catID] = true
+	}
 
-    var filteredProducts []Product
-    for _, product := range products {
-        // Avvalo filial bo‘yicha filterlaymiz
-        for _, fId := range product.Filials {
-            if fId == user.FilialID {
-                // 2️⃣ Shu mahsulot kategoriyasi ruxsat etilganmi tekshiramiz
-                if len(allowedCategories) > 0 && !allowedCategories[product.CategoryID] {
-                    // Ruxsat yo‘q — bu mahsulotni o‘tkazib yuboramiz
-                    continue
-                }
+	var filteredProducts []Product
+	for _, product := range products {
+		// Avvalo filial bo‘yicha filterlaymiz
+		for _, fId := range product.Filials {
+			if fId == user.FilialID {
+				// 2️⃣ Shu mahsulot kategoriyasi ruxsat etilganmi tekshiramiz
+				if len(allowedCategories) > 0 && !allowedCategories[product.CategoryID] {
+					// Ruxsat yo‘q — bu mahsulotni o‘tkazib yuboramiz
+					continue
+				}
 
-                filteredProducts = append(filteredProducts, product)
-                break
-            }
-        }
-    }
+				filteredProducts = append(filteredProducts, product)
+				break
+			}
+		}
+	}
 
-    groupedData := make(map[string][]ProductSimple)
-    for _, product := range filteredProducts {
-        categoryName := "Unknown"
-        if category := findCategoryByID(product.CategoryID); category != nil {
-            categoryName = category.Name
-        }
+	groupedData := make(map[string][]ProductSimple)
+	for _, product := range filteredProducts {
+		// category ni topamiz
+		category := findCategoryByID(product.CategoryID)
+		if category == nil || category.Name == "" {
+			// Agar category topilmasa yoki name bo'sh bo'lsa, umuman qo'shmaymiz
+			continue
+		}
 
-        groupedData[categoryName] = append(groupedData[categoryName], ProductSimple{
-            ID:   product.ID,
-            Type: product.Type,
-            Name: product.Name,
-        })
-    }
+		groupedData[category.Name] = append(groupedData[category.Name], ProductSimple{
+			ID:   product.ID,
+			Type: product.Type,
+			Name: product.Name,
+		})
+	}
 
-    message := "Mahsulotlar olindi"
-    if filial := findFilialByID(user.FilialID); filial != nil {
-        message = fmt.Sprintf("%s filiali mahsulotlari", filial.Name)
-    }
+	message := "Mahsulotlar olindi"
+	if filial := findFilialByID(user.FilialID); filial != nil {
+		message = fmt.Sprintf("%s filiali mahsulotlari", filial.Name)
+	}
 
-    w.Header().Set("Content-Type", "application/json")
-    w.WriteHeader(http.StatusOK)
-    json.NewEncoder(w).Encode(GroupedProductsResponse{
-        Success: true,
-        Message: message,
-        Data:    groupedData,
-    })
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(GroupedProductsResponse{
+		Success: true,
+		Message: message,
+		Data:    groupedData,
+	})
 }
 
 // GET /api/products/all (Admin uchun barcha mahsulotlar)
@@ -898,6 +899,7 @@ func getUserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // PUT /api/users/{id}
+// Sizning handleringizni to‘liq ishlaydigan ko‘rinishi
 func updateUserHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])

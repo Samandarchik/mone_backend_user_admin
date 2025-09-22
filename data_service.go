@@ -328,6 +328,27 @@ func DeleteCategory(id uint) bool {
 	}
 	return false
 }
+func DeleteCategoryWithProducts(categoryID uint) bool {
+    // 1. Kategoriyaga tegishli mahsulotlarni o'chirish
+    var remainingProducts []Product
+    for _, p := range products {
+        if p.CategoryID != categoryID {
+            remainingProducts = append(remainingProducts, p)
+        }
+    }
+    products = remainingProducts
+    saveProducts()
+
+    // 2. Kategoriyani o'chirish
+    for i, c := range categories {
+        if c.ID == categoryID {
+            categories = append(categories[:i], categories[i+1:]...)
+            saveCategories()
+            return true
+        }
+    }
+    return false
+}
 
 // ============= PRODUCTS =============
 func CreateProduct(req AddProductRequest) Product {
@@ -494,19 +515,33 @@ func GetUserByID(id uint) *User {
 }
 
 func UpdateUser(id uint, req UpdateUserRequest) *User {
-	hashedPassword, _ := hashPassword(req.Password)
-
 	user := findUserByID(id)
 	if user == nil {
 		return nil
 	}
-	user.Name = req.Name
-	user.Phone = req.Phone
-	user.CategoryID = req.CategoryID
-	user.Password = hashedPassword
-	user.IsAdmin = req.IsAdmin
-	user.FilialID = req.FilialID
-	saveUsers()
+
+	// Faqat kelgan fieldlarni yangilaymiz
+	if req.Name != nil {
+		user.Name = *req.Name
+	}
+	if req.Phone != nil {
+		user.Phone = *req.Phone
+	}
+	if req.CategoryID != nil {
+		user.CategoryID = *req.CategoryID
+	}
+	if req.Password != nil {
+		hashedPassword, _ := hashPassword(*req.Password)
+		user.Password = hashedPassword
+	}
+	if req.IsAdmin != nil {
+		user.IsAdmin = *req.IsAdmin
+	}
+	if req.FilialID != nil {
+		user.FilialID = *req.FilialID
+	}
+
+	saveUsers() // saqlash
 	return user
 }
 
