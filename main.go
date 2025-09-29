@@ -12,10 +12,13 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
+	"github.com/adrium/goheif" // HEIC/HEIF support
 	"github.com/gorilla/mux"
 	"github.com/nfnt/resize"
+	_ "golang.org/x/image/webp" // WebP support
 )
 
 const (
@@ -273,10 +276,9 @@ func sendBackupToTelegram() error {
 	return nil
 }
 
-//////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////
 // Image upload handler
-//////////////////////////////////////////////////////
-
+// ////////////////////////////////////////////////////
 func uploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Faqat POST request!", http.StatusMethodNotAllowed)
@@ -302,16 +304,40 @@ func uploadImageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	img, format, err := image.Decode(file)
-	if err != nil {
-		http.Error(w, "Rasmni decode qilishda xatolik: "+err.Error(), http.StatusBadRequest)
-		return
+	// Faylning kengaytmasini tekshirish
+	ext := strings.ToLower(filepath.Ext(handler.Filename))
+
+	var img image.Image
+	var format string
+
+	// HEIC/HEIF formatni alohida qayta ishlash
+	if ext == ".heic" || ext == ".heif" {
+		// Faylni boshidan o'qish uchun qayta ochish
+		file.Seek(0, 0)
+		img, err = goheif.Decode(file)
+		if err != nil {
+			http.Error(w, "HEIC rasmni decode qilishda xatolik: "+err.Error(), http.StatusBadRequest)
+			return
+		}
+		format = "heic"
+	} else {
+		// Boshqa formatlar uchun standart decoder
+		file.Seek(0, 0)
+		img, format, err = image.Decode(file)
+		if err != nil {
+			http.Error(w, "Rasmni decode qilishda xatolik: "+err.Error(), http.StatusBadRequest)
+			return
+		}
 	}
+
 	log.Println("Image format:", format)
 
+	// Rasmni kichraytirish
 	newImg := resize.Resize(1024, 0, img, resize.Lanczos3)
 
-	savePath := fmt.Sprintf("uploads/%s.jpg", handler.Filename)
+	// Fayl nomini yaratish (kengaytmasiz)
+	baseFilename := strings.TrimSuffix(handler.Filename, filepath.Ext(handler.Filename))
+	savePath := fmt.Sprintf("uploads/%s.jpg", baseFilename)
 
 	out, err := os.Create(savePath)
 	if err != nil {
@@ -320,7 +346,8 @@ func uploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer out.Close()
 
-	opts := &jpeg.Options{Quality: 80}
+	// JPEG sifatida saqlash
+	opts := &jpeg.Options{Quality: 85}
 	err = jpeg.Encode(out, newImg, opts)
 	if err != nil {
 		http.Error(w, "JPEG encode qilishda xatolik: "+err.Error(), http.StatusInternalServerError)

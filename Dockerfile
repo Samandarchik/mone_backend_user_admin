@@ -29,9 +29,10 @@ WORKDIR /root/
 # Binary va data katalogini nusxalash
 COPY --from=builder /app/main .
 COPY --from=builder /app/data ./data
+COPY --from=builder /app/uploads ./uploads
 
 # Ma'lumotlar uchun volume
-VOLUME ["/root/data"]
+VOLUME ["/root/data", "/root/uploads"]
 
 # Portni ochish
 EXPOSE 1010
