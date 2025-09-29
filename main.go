@@ -1,20 +1,39 @@
 package main
 
 import (
+	"archive/zip"
+	"bytes"
 	"fmt"
+	"image"
+	"image/jpeg"
+	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
+	"os"
+	"path/filepath"
+	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/nfnt/resize"
+)
+
+const (
+	BOT_TOKEN = "8157743798:AAELzxyyFLSMxbT-XL4l-3ZVmxVBXYOY0Ro"
+	CHAT_ID   = "-4800613243"
 )
 
 func main() {
 	fmt.Println("🚀 Server ishga tushmoqda...")
 	initData()
 
+	// Telegram backup service ni ishga tushirish
+	startBackupService()
+	log.Println("✅ Backup service ishga tushdi (har kuni soat 00:00)")
+
 	r := mux.NewRouter()
 
-	// CORS middleware ni eng birinchi qo'shish
+	// CORS middleware
 	r.Use(corsMiddleware)
 
 	// Health check
@@ -29,49 +48,45 @@ func main() {
 	api.HandleFunc("/register", register).Methods("POST", "OPTIONS")
 
 	// ================= USER ROUTES =================
-	// User uchun (token kerak)
 	api.HandleFunc("/products", authenticateJWT(getProductsHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/orders", authenticateJWT(createOrderHandler)).Methods("POST", "OPTIONS")
 	api.HandleFunc("/orders", authenticateJWT(getOrdersHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/orders/{id:[0-9]+}", authenticateJWT(getOrderHandler)).Methods("GET", "OPTIONS")
 
-	// Public endpoints (token kerak lekin admin emas)
 	api.HandleFunc("/filials", authenticateJWT(getFilialsHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/categories", authenticateJWT(getCategoriesHandler)).Methods("GET", "OPTIONS")
 
 	// ================= ADMIN ROUTES =================
-	// Filials management
 	api.HandleFunc("/filials", requireAdmin(addFilialHandler)).Methods("POST", "OPTIONS")
 	api.HandleFunc("/filials/{id:[0-9]+}", requireAdmin(getFilialHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/filials/{id:[0-9]+}", requireAdmin(updateFilialHandler)).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/filials/{id:[0-9]+}", requireAdmin(deleteFilialHandler)).Methods("DELETE", "OPTIONS")
 
-	// Categories management
 	api.HandleFunc("/categories", requireAdmin(addCategoryHandler)).Methods("POST", "OPTIONS")
 	api.HandleFunc("/categories/{id:[0-9]+}", requireAdmin(getCategoryHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/categories/{id:[0-9]+}", requireAdmin(updateCategoryHandler)).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/categories/{id:[0-9]+}", requireAdmin(deleteCategoryHandler)).Methods("DELETE", "OPTIONS")
 
-	// Products management - MUHIM: /products/all ni /products dan oldin qo'yish
+	// Products
 	api.HandleFunc("/products/all", requireAdmin(getAllProductsHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/products", requireAdmin(addProductHandler)).Methods("POST", "OPTIONS")
 	api.HandleFunc("/products/{id:[0-9]+}", requireAdmin(getProductHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/products/{id:[0-9]+}", requireAdmin(updateProductHandler)).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/products/{id:[0-9]+}", requireAdmin(deleteProductHandler)).Methods("DELETE", "OPTIONS")
 
-	// Users management
+	// Users
 	api.HandleFunc("/users", requireAdmin(getUsersHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/users/{id:[0-9]+}", requireAdmin(getUserHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/users/{id:[0-9]+}", requireAdmin(updateUserHandler)).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/users/{id:[0-9]+}", requireAdmin(deleteUserHandler)).Methods("DELETE", "OPTIONS")
 	api.HandleFunc("/users/{id:[0-9]+}/assign-filial", requireAdmin(assignFilialHandler)).Methods("PUT", "OPTIONS")
 
-	// Orders management
+	// Orders
 	api.HandleFunc("/orderslist", requireAdmin(getOrdersListHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/orders/{id:[0-9]+}", requireAdmin(updateOrderHandler)).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/orders/{id:[0-9]+}", requireAdmin(deleteOrderHandler)).Methods("DELETE", "OPTIONS")
 
-	// Category Items management
+	// Category Items
 	api.HandleFunc("/category-items", requireAdmin(getCategoryItemsHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/category-items/{id:[0-9]+}", requireAdmin(getCategoryItemHandler)).Methods("GET", "OPTIONS")
 	api.HandleFunc("/categories/{id:[0-9]+}/items", authenticateJWT(getCategoryItemsByCategoryHandler)).Methods("GET", "OPTIONS")
@@ -80,31 +95,240 @@ func main() {
 	api.HandleFunc("/category-items/{id:[0-9]+}", requireAdmin(updateCategoryItemHandler)).Methods("PUT", "OPTIONS")
 	api.HandleFunc("/category-items/{id:[0-9]+}", requireAdmin(deleteCategoryItemHandler)).Methods("DELETE", "OPTIONS")
 
-	fmt.Println("✅ Server ishga tushdi!")
-	fmt.Println("📍 URL: http://localhost:1010")
-	fmt.Println("📋 Health check: http://localhost:1010/health")
-	fmt.Println("🔐 API Base URL: http://localhost:1010/api")
-	fmt.Println("📱 CORS: Barcha domenlar uchun ochiq")
-	fmt.Println("")
-	fmt.Println("🔑 Auth Endpoints:")
-	fmt.Println("   POST /api/login")
-	fmt.Println("   POST /api/register")
-	fmt.Println("")
-	fmt.Println("👤 User Endpoints:")
-	fmt.Println("   GET  /api/products")
-	fmt.Println("   GET  /api/orders")
-	fmt.Println("   POST /api/orders")
-	fmt.Println("   GET  /api/orders/{id}")
-	fmt.Println("   GET  /api/filials")
-	fmt.Println("   GET  /api/categories")
-	fmt.Println("")
-	fmt.Println("⚡ Admin Endpoints:")
-	fmt.Println("   📍 Filials: GET, POST, PUT, DELETE /api/filials")
-	fmt.Println("   📂 Categories: GET, POST, PUT, DELETE /api/categories")
-	fmt.Println("   📦 Products: GET, POST, PUT, DELETE /api/products")
-	fmt.Println("   👥 Users: GET, POST, PUT, DELETE /api/users")
-	fmt.Println("   📋 Orders: GET, PUT, DELETE /api/orders")
-	fmt.Println("   📊 Orders List: GET /api/orderslist")
+	// ================= IMAGE UPLOAD =================
+	api.HandleFunc("/upload", authenticateJWT(uploadImageHandler)).Methods("POST", "OPTIONS")
 
+	// Static files
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("uploads"))))
+
+	// Run server
 	log.Fatal(http.ListenAndServe(":1010", r))
+}
+
+//////////////////////////////////////////////////////
+// TELEGRAM BACKUP SERVICE
+//////////////////////////////////////////////////////
+
+// Backup service - har kuni soat 00:00 da ishga tushadi
+func startBackupService() {
+	go func() {
+		for {
+			now := time.Now()
+			// Ertangi kunning 00:00 ini hisoblaymiz
+			next := time.Date(now.Year(), now.Month(), now.Day()+1, 0, 0, 0, 0, now.Location())
+			duration := next.Sub(now)
+
+			log.Printf("⏰ Keyingi backup vaqti: %s (%.0f soatdan keyin)", next.Format("02.01.2006 15:04"), duration.Hours())
+
+			// Belgilangan vaqtgacha kutamiz
+			time.Sleep(duration)
+
+			// Backup yuborish
+			log.Println("🔄 Backup jarayoni boshlandi...")
+			err := sendBackupToTelegram()
+			if err != nil {
+				log.Printf("❌ Backup yuborishda xatolik: %v", err)
+			} else {
+				log.Println("✅ Backup muvaffaqiyatli yuborildi!")
+			}
+		}
+	}()
+}
+
+// Papkalarni zip qilish
+func createZipArchive(folders []string, zipPath string) error {
+	zipFile, err := os.Create(zipPath)
+	if err != nil {
+		return err
+	}
+	defer zipFile.Close()
+
+	zipWriter := zip.NewWriter(zipFile)
+	defer zipWriter.Close()
+
+	for _, folder := range folders {
+		// Papka mavjudligini tekshirish
+		if _, err := os.Stat(folder); os.IsNotExist(err) {
+			log.Printf("⚠️ Papka topilmadi: %s", folder)
+			continue
+		}
+
+		err := filepath.Walk(folder, func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+
+			// Papkani o'tkazib yuboramiz, faqat fayllarni qo'shamiz
+			if info.IsDir() {
+				return nil
+			}
+
+			// Zip ichidagi relative path
+			relPath, err := filepath.Rel(".", path)
+			if err != nil {
+				return err
+			}
+
+			// Zip ichiga fayl qo'shish
+			zipEntry, err := zipWriter.Create(relPath)
+			if err != nil {
+				return err
+			}
+
+			// Faylni o'qish
+			file, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+			defer file.Close()
+
+			// Zip ga yozish
+			_, err = io.Copy(zipEntry, file)
+			return err
+		})
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// Telegram ga yuborish
+func sendBackupToTelegram() error {
+	// Vaqt belgisi
+	timestamp := time.Now().Format("2006-01-02_15-04")
+	zipFileName := fmt.Sprintf("backup_%s.zip", timestamp)
+
+	// Zip fayl yaratish
+	log.Println("📦 Zip arxiv yaratilmoqda...")
+	err := createZipArchive([]string{"uploads", "data"}, zipFileName)
+	if err != nil {
+		return fmt.Errorf("zip yaratishda xatolik: %v", err)
+	}
+	defer os.Remove(zipFileName) // Yuborilgandan keyin o'chirish
+
+	// Fayl hajmini tekshirish
+	fileInfo, err := os.Stat(zipFileName)
+	if err != nil {
+		return err
+	}
+	sizeMB := float64(fileInfo.Size()) / (1024 * 1024)
+	log.Printf("📊 Arxiv hajmi: %.2f MB", sizeMB)
+
+	// Telegram API ga yuborish
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendDocument", BOT_TOKEN)
+
+	file, err := os.Open(zipFileName)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Multipart form yaratish
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+
+	// chat_id parametri
+	_ = writer.WriteField("chat_id", CHAT_ID)
+	_ = writer.WriteField("caption", fmt.Sprintf("📅 Kunlik backup\n🕐 Vaqt: %s\n📦 Hajm: %.2f MB",
+		time.Now().Format("02.01.2006 15:04"), sizeMB))
+
+	// Fayl qo'shish
+	part, err := writer.CreateFormFile("document", zipFileName)
+	if err != nil {
+		return err
+	}
+
+	_, err = io.Copy(part, file)
+	if err != nil {
+		return err
+	}
+
+	err = writer.Close()
+	if err != nil {
+		return err
+	}
+
+	// HTTP request
+	req, err := http.NewRequest("POST", url, body)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+
+	client := &http.Client{Timeout: 5 * time.Minute}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("telegram API xatolik: %s", string(bodyBytes))
+	}
+
+	return nil
+}
+
+//////////////////////////////////////////////////////
+// Image upload handler
+//////////////////////////////////////////////////////
+
+func uploadImageHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Faqat POST request!", http.StatusMethodNotAllowed)
+		return
+	}
+
+	err := r.ParseMultipartForm(20 << 20)
+	if err != nil {
+		http.Error(w, "Formani parse qilishda xatolik: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	file, handler, err := r.FormFile("image")
+	if err != nil {
+		http.Error(w, "Rasmni olishda xatolik: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer file.Close()
+
+	err = os.MkdirAll("uploads", os.ModePerm)
+	if err != nil {
+		http.Error(w, "Papka yaratishda xatolik: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	img, format, err := image.Decode(file)
+	if err != nil {
+		http.Error(w, "Rasmni decode qilishda xatolik: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+	log.Println("Image format:", format)
+
+	newImg := resize.Resize(1024, 0, img, resize.Lanczos3)
+
+	savePath := fmt.Sprintf("uploads/%s.jpg", handler.Filename)
+
+	out, err := os.Create(savePath)
+	if err != nil {
+		http.Error(w, "Faylni yaratishda xatolik: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer out.Close()
+
+	opts := &jpeg.Options{Quality: 80}
+	err = jpeg.Encode(out, newImg, opts)
+	if err != nil {
+		http.Error(w, "JPEG encode qilishda xatolik: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	imageURL := "/static/" + filepath.Base(savePath)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(fmt.Sprintf(`{"message":"Yuklandi","url":"%s"}`, imageURL)))
 }

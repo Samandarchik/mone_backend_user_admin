@@ -30,7 +30,9 @@ func sendToTelegram(order *Order, categoryItems map[uint][]PrinterItem, printerS
 	message.WriteString(fmt.Sprintf("📋 *Заказ ID:* `%s`\n", order.OrderID))
 	message.WriteString(fmt.Sprintf("👤 *Клиент:* %s\n", order.Username))
 	message.WriteString(fmt.Sprintf("🏢 *Ветвь:* %s\n", order.FilialName))
-	message.WriteString(fmt.Sprintf("⏰ *Время:* %s\n\n", time.Now().Format("2006-01-02 15:04:05")))
+	loc := time.FixedZone("UTC+5", 5*60*60)
+	tashkentTime := time.Now().In(loc)
+	message.WriteString(fmt.Sprintf("⏰ *Время:* %s\n\n", tashkentTime.Format("2006-01-02 15:04:05")))
 
 	// Printer status at the top
 	printerStatusText := "❌ *Невозможно отправить на принтер* @Baxtiyor0055"

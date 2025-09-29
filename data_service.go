@@ -304,6 +304,15 @@ func GetAllCategories() []Category {
 	return categories
 }
 
+//	func GetProductsByCategoryID(categoryID uint) []Product {
+//		var categoryProducts []Product
+//		for _, p := range products {
+//			if p.CategoryID == categoryID {
+//				categoryProducts = append(categoryProducts, p)
+//			}
+//		}
+//		return categoryProducts
+//	}
 func GetCategoryByID(id uint) *Category {
 	return findCategoryByID(id)
 }
@@ -329,25 +338,25 @@ func DeleteCategory(id uint) bool {
 	return false
 }
 func DeleteCategoryWithProducts(categoryID uint) bool {
-    // 1. Kategoriyaga tegishli mahsulotlarni o'chirish
-    var remainingProducts []Product
-    for _, p := range products {
-        if p.CategoryID != categoryID {
-            remainingProducts = append(remainingProducts, p)
-        }
-    }
-    products = remainingProducts
-    saveProducts()
+	// 1. Kategoriyaga tegishli mahsulotlarni o'chirish
+	var remainingProducts []Product
+	for _, p := range products {
+		if p.CategoryID != categoryID {
+			remainingProducts = append(remainingProducts, p)
+		}
+	}
+	products = remainingProducts
+	saveProducts()
 
-    // 2. Kategoriyani o'chirish
-    for i, c := range categories {
-        if c.ID == categoryID {
-            categories = append(categories[:i], categories[i+1:]...)
-            saveCategories()
-            return true
-        }
-    }
-    return false
+	// 2. Kategoriyani o'chirish
+	for i, c := range categories {
+		if c.ID == categoryID {
+			categories = append(categories[:i], categories[i+1:]...)
+			saveCategories()
+			return true
+		}
+	}
+	return false
 }
 
 // ============= PRODUCTS =============
@@ -357,6 +366,7 @@ func CreateProduct(req AddProductRequest) Product {
 		Name:       req.Name,
 		Type:       req.Type,
 		CategoryID: req.CategoryID,
+		ImageUrl:   req.ImageUrl,
 		Filials:    req.Filials,
 	}
 	products = append(products, product)
@@ -381,6 +391,7 @@ func UpdateProduct(id uint, req UpdateProductRequest) *Product {
 	product.Name = req.Name
 	product.Type = req.Type
 	product.CategoryID = req.CategoryID
+	product.ImageUrl = req.ImageUrl
 	product.Filials = req.Filials
 	saveProducts()
 	return product
