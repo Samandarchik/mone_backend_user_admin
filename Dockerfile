@@ -1,35 +1,38 @@
 # Dockerfile
-FROM golang:1.23-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 # Kerakli paketlarni o'rnatish
-RUN apk add --no-cache git
+RUN apk add --no-cache git gcc musl-dev
 
 # Ish katalogini yaratish
 WORKDIR /app
 
-# Go modullarini nusxalash va yuklab olish
+# Go modullarini nusxalash
 COPY go.mod go.sum ./
-RUN go mod tidy && go mod download
+
+# Go modullarni yuklab olish
+RUN go mod download
 
 # Barcha kodlarni nusxalash
 COPY . .
-# Binar faylni qurish
-RUN go mod tidy
+
+# Binaryni qurish
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 # Final stage - minimal image
 FROM alpine:latest
 
 # SSL sertifikatlarini qo'shish (HTTPS so'rovlar uchun)
-# RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add ca-certificates wget
 
 # Ish katalogi
 WORKDIR /root/
 
-# Binary va data katalogini nusxalash
+# Binary va kerakli kataloglarni nusxalash
 COPY --from=builder /app/main .
-COPY --from=builder /app/data ./data
-COPY --from=builder /app/uploads ./uploads
+
+# Data katalogini nusxalash (agar kerak bo'lsa)
+RUN mkdir -p data uploads
 
 # Ma'lumotlar uchun volume
 VOLUME ["/root/data", "/root/uploads"]
