@@ -9,19 +9,19 @@ WORKDIR /app
 
 # Go modullarini nusxalash va yuklab olish
 COPY go.mod go.sum ./
-RUN go mod download
+RUN go mod tidy && go mod download
 
 # Barcha kodlarni nusxalash
 COPY . .
-
-# Binaryni qurish
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main main.go models.go data_service.go middleware.go printer_service.go routes.go
+# Binar faylni qurish
+RUN go mod tidy
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 # Final stage - minimal image
 FROM alpine:latest
 
 # SSL sertifikatlarini qo'shish (HTTPS so'rovlar uchun)
-RUN apk --no-cache add ca-certificates
+# RUN apk --no-cache add ca-certificates
 
 # Ish katalogi
 WORKDIR /root/
