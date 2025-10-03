@@ -431,7 +431,7 @@ func getCategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(Response{
 		Success: true,
-		Message: "Kategoriyalar",
+		Message: "Kategoriyalr",
 		Data:    categories,
 	})
 }
@@ -655,9 +655,10 @@ func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		groupedData[category.Name] = append(groupedData[category.Name], ProductSimple{
-			ID:   product.ID,
-			Type: product.Type,
-			Name: product.Name,
+			ID:       product.ID,
+			Type:     product.Type,
+			Name:     product.Name,
+			ImageUrl: product.ImageUrl,
 		})
 	}
 
@@ -686,6 +687,7 @@ func getAllProductsHandler(w http.ResponseWriter, r *http.Request) {
 			Type:        product.Type,
 			CategoryID:  product.CategoryID,
 			Filials:     product.Filials,
+			ImageUrl:    product.ImageUrl,
 			FilialNames: []string{},
 		}
 

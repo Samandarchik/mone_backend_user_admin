@@ -291,8 +291,10 @@ func DeleteFilial(id uint) bool {
 // ============= CATEGORIES =============
 func CreateCategory(req AddCategoryRequest) Category {
 	category := Category{
-		ID:   nextCategoryID,
-		Name: req.Name,
+		ID:       nextCategoryID,
+		Name:     req.Name,
+		Printer:  req.Printer,
+		ImageUrl: req.ImageUrl,
 	}
 	categories = append(categories, category)
 	nextCategoryID++
@@ -322,7 +324,20 @@ func UpdateCategory(id uint, req UpdateCategoryRequest) *Category {
 	if category == nil {
 		return nil
 	}
-	category.Name = req.Name
+
+	// agar name kelgan bo‘lsa o‘zgartiramiz
+	if req.Name != nil {
+		category.Name = *req.Name
+	}
+
+	// agar printer kelgan bo‘lsa o‘zgartiramiz
+	if req.Printer != nil {
+		category.Printer = *req.Printer
+	}
+	if req.ImageUrl != nil {
+		category.ImageUrl = *req.ImageUrl
+	}
+
 	saveCategories()
 	return category
 }
