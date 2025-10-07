@@ -64,7 +64,7 @@ type Order struct {
 type OrderItem struct {
 	ProductID uint    `json:"product_id"`
 	Name      string  `json:"name"`
-	Count     int     `json:"count"`
+	Count     float64     `json:"count"`
 	Type      string  `json:"type"`
 	Subtotal  float64 `json:"subtotal"`
 }
@@ -142,7 +142,7 @@ type CreateOrderRequest struct {
 
 type CreateOrderItem struct {
 	ProductID uint `json:"product_id"`
-	Count     int  `json:"count"`
+	Count     float64  `json:"count"`
 }
 
 type UpdateOrderRequest struct {
@@ -159,7 +159,7 @@ type PrinterRequest struct {
 }
 type PrinterItem struct {
 	Product string `json:"product"`
-	Count   int    `json:"count"`
+	Count   float64    `json:"count"`
 	Type    string `json:"type"`
 }
 

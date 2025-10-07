@@ -25,7 +25,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 			"products":       len(products),
 			"orders":         len(orders),
 			"categoryItems":  len(categoryItems),
-			"iphoneVersion":  "0.0.1",
+			"iphoneVersion":  "0.1.3",
 			"appstoreUrl":    "https://apps.apple.com/app/id123456789",
 			"androidVersion": "0.0.1",
 			"playstoreUrl":   "https://play.google.com/store/apps/details?id=com.example.app",
