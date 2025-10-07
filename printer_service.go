@@ -18,7 +18,7 @@ type TelegramMessage struct {
 }
 
 // Send formatted message to Telegram
-func sendToTelegram(order *Order, printerItems map[uint][]PrinterItem, printerSuccess bool) error {
+func sendToTelegram(order *Order, categoryItems map[uint][]PrinterItem, printerSuccess bool) error {
 	user := findUserByID(order.UserID)
 	if user == nil {
 		return fmt.Errorf("user topilmadi")
@@ -43,15 +43,14 @@ func sendToTelegram(order *Order, printerItems map[uint][]PrinterItem, printerSu
 
 	message.WriteString("📦 *ТОВАРЫ:*\n")
 
-	// Display items grouped by printer
-	for printerID, items := range printerItems {
-		message.WriteString(fmt.Sprintf("\n🖨️ *Printer %d:*\n", printerID))
-		for _, item := range items {
-			message.WriteString(fmt.Sprintf("   • %s", item.Product))
-			if float32(int(item.Count)) == item.Count {
-				message.WriteString(fmt.Sprintf(" - %.0f %s\n", item.Count, item.Type))
-			} else {
-				message.WriteString(fmt.Sprintf(" - %.2f %s\n", item.Count, item.Type))
+	// Display items
+	for categoryID, items := range categoryItems {
+		category := GetCategoryByID(categoryID)
+		if category != nil {
+			message.WriteString(fmt.Sprintf("\n🔸 *%s:*\n", category.Name))
+			for _, item := range items {
+				message.WriteString(fmt.Sprintf("   • %s", item.Product))
+				message.WriteString(fmt.Sprintf(" - %v %s\n", item.Count, item.Type))
 			}
 		}
 	}
@@ -87,7 +86,7 @@ func sendToTelegram(order *Order, printerItems map[uint][]PrinterItem, printerSu
 	return nil
 }
 
-// Send order to printer (grouped by category.Printer)
+// Send order to printer (printer string formatda)
 func sendToPrinter(order *Order) error {
 	user := findUserByID(order.UserID)
 	if user == nil {
@@ -99,8 +98,11 @@ func sendToPrinter(order *Order) error {
 		return fmt.Errorf("filial topilmadi")
 	}
 
-	// Mahsulotlarni category.Printer bo'yicha guruhlash
-	printerItems := make(map[uint][]PrinterItem)
+	// Mahsulotlarni printer bo'yicha guruhlash (string formatda)
+	printerItems := make(map[string]struct {
+		items        []PrinterItem
+		categoryName string
+	})
 	printerSuccess := false
 
 	for _, item := range order.Items {
@@ -108,13 +110,17 @@ func sendToPrinter(order *Order) error {
 		if product != nil {
 			category := GetCategoryByID(product.CategoryID)
 			if category != nil {
-				// category.Printer bu printer ID
-				printerID := uint(category.Printer)
-				printerItems[printerID] = append(printerItems[printerID], PrinterItem{
+				// Printer ID ni string formatga o'tkazish
+				printerKey := fmt.Sprintf("p%d", category.Printer)
+
+				printerData := printerItems[printerKey]
+				printerData.items = append(printerData.items, PrinterItem{
 					Product: item.Name,
 					Count:   item.Count,
 					Type:    item.Type,
 				})
+				printerData.categoryName = category.Name
+				printerItems[printerKey] = printerData
 			}
 		}
 	}
@@ -122,14 +128,13 @@ func sendToPrinter(order *Order) error {
 	allSuccess := true
 
 	// Har bir printer uchun alohida chek yuborish
-	for printerID, items := range printerItems {
+	for printerKey, data := range printerItems {
 		printRequest := PrinterRequest{
-			Printer:  fmt.Sprintf("%d", printerID),
-			OrderID:  order.OrderID,
-			Category: fmt.Sprintf("Printer %d", printerID),
+			Printer:  1, // "p1", "p2" formatda
+			Category: data.categoryName,
 			Username: order.Username,
 			Filial:   order.FilialName,
-			Items:    items,
+			Items:    data.items,
 		}
 
 		jsonData, err := json.Marshal(printRequest)
@@ -139,27 +144,44 @@ func sendToPrinter(order *Order) error {
 			continue
 		}
 
+		log.Printf("📤 Yuborilayotgan JSON: %s", string(jsonData))
+
 		resp, err := http.Post("https://marxabo1.javohir-jasmina.uz/print", "application/json", bytes.NewBuffer(jsonData))
 		if err != nil {
-			log.Printf("Printer ga yuborishda xato (Printer %d): %v", printerID, err)
+			log.Printf("Printer ga yuborishda xato (Printer: %s): %v", printerKey, err)
 			allSuccess = false
 			continue
 		}
 		defer resp.Body.Close()
 
 		if resp.StatusCode == 200 {
-			log.Printf("✅ Chek yuborildi: Printer %d - %s (%s)", printerID, order.Username, order.FilialName)
+			log.Printf("✅ Chek yuborildi: Printer %s - %s (%s)", printerKey, order.Username, order.FilialName)
 		} else {
-			log.Printf("❌ Chek yuborishda xato: Printer %d - Status: %d", printerID, resp.StatusCode)
+			log.Printf("❌ Chek yuborishda xato: Printer %s - Status: %d", printerKey, resp.StatusCode)
 			allSuccess = false
 		}
 	}
 
+	// Set overall printer success status
 	printerSuccess = allSuccess
 
 	// Send to Telegram after processing all printers
 	if len(printerItems) > 0 {
-		err := sendToTelegram(order, printerItems, printerSuccess)
+		// Telegram uchun kategoriya bo'yicha guruhlash
+		categoryItemsForTelegram := make(map[uint][]PrinterItem)
+		order.OrderID = fmt.Sprintf("%d", order.ID) // Ensure OrderID is set
+		for _, item := range order.Items {
+			product := findProductByID(item.ProductID)
+			if product != nil {
+				categoryItemsForTelegram[product.CategoryID] = append(categoryItemsForTelegram[product.CategoryID], PrinterItem{
+					Product: item.Name,
+					Count:   item.Count,
+					Type:    item.Type,
+				})
+			}
+		}
+
+		err := sendToTelegram(order, categoryItemsForTelegram, printerSuccess)
 		if err != nil {
 			log.Printf("Telegram ga yuborishda xato: %v", err)
 		}

@@ -218,7 +218,15 @@ func findFilialByID(id uint) *Filial {
 
 func findCategoryByID(id uint) *Category {
 	for i, c := range categories {
-		if c.ID == id {
+		if c.Printer == id {
+			return &categories[i]
+		}
+	}
+	return nil
+}
+func findPrinterID(id uint) *Category {
+	for i, c := range categories {
+		if c.Printer == id {
 			return &categories[i]
 		}
 	}
@@ -316,6 +324,9 @@ func GetAllCategories() []Category {
 //		return categoryProducts
 //	}
 func GetCategoryByID(id uint) *Category {
+	return findPrinterID(id)
+}
+func GetPrinterByID(id uint) *Category {
 	return findCategoryByID(id)
 }
 
