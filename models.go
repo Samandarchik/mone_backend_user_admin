@@ -55,7 +55,7 @@ type Order struct {
 	FilialID   uint        `json:"filial_id"`
 	FilialName string      `json:"filial_name"`
 	Items      []OrderItem `json:"items"`
-	Total      float32     `json:"total"`
+	Total      float64     `json:"total"`
 	Status     string      `json:"status"`
 	Created    time.Time   `json:"created"`
 	Updated    time.Time   `json:"updated"`
@@ -64,9 +64,9 @@ type Order struct {
 type OrderItem struct {
 	ProductID uint    `json:"product_id"`
 	Name      string  `json:"name"`
-	Count     float32 `json:"count"`
+	Count     int     `json:"count"`
 	Type      string  `json:"type"`
-	Subtotal  float32 `json:"subtotal"`
+	Subtotal  float64 `json:"subtotal"`
 }
 
 // Request structs
@@ -141,8 +141,8 @@ type CreateOrderRequest struct {
 }
 
 type CreateOrderItem struct {
-	ProductID uint    `json:"product_id"`
-	Count     float32 `json:"count"`
+	ProductID uint `json:"product_id"`
+	Count     int  `json:"count"`
 }
 
 type UpdateOrderRequest struct {
@@ -158,9 +158,9 @@ type PrinterRequest struct {
 	Items    []PrinterItem `json:"items"`
 }
 type PrinterItem struct {
-	Product string  `json:"product"`
-	Count   float32 `json:"count"`
-	Type    string  `json:"type"`
+	Product string `json:"product"`
+	Count   int    `json:"count"`
+	Type    string `json:"type"`
 }
 
 // Response structs
