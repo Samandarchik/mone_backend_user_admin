@@ -130,7 +130,7 @@ func sendToPrinter(order *Order) error {
 	// Har bir printer uchun alohida chek yuborish
 	for printerKey, data := range printerItems {
 		printRequest := PrinterRequest{
-			Printer:  1, // "p1", "p2" formatda
+			Printer:  "p1", // "p1", "p2" formatda
 			Category: data.categoryName,
 			Username: order.Username,
 			Filial:   order.FilialName,

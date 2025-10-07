@@ -150,7 +150,7 @@ type UpdateOrderRequest struct {
 }
 
 type PrinterRequest struct {
-	Printer  uint          `json:"printer"`
+	Printer  string        `json:"printer"`
 	Category string        `json:"category"`
 	Username string        `json:"username"`
 	OrderID  string        `json:"order_id"`
