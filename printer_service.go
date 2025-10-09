@@ -18,7 +18,7 @@ type TelegramMessage struct {
 }
 
 // Send formatted message to Telegram
-func sendToTelegram(order *Order, categoryItems map[uint][]PrinterItem, printerSuccess bool) error {
+func sendToTelegram(order *Order, allItems []PrinterItem, printerSuccess bool) error {
 	user := findUserByID(order.UserID)
 	if user == nil {
 		return fmt.Errorf("user topilmadi")
@@ -43,16 +43,9 @@ func sendToTelegram(order *Order, categoryItems map[uint][]PrinterItem, printerS
 
 	message.WriteString("📦 *ТОВАРЫ:*\n")
 
-	// Display items (only one category since mobile sends one category at a time)
-	for categoryID, items := range categoryItems {
-		category := GetCategoryByID(categoryID)
-		if category != nil {
-			message.WriteString(fmt.Sprintf("\n🔸 *%s:*\n", category.Name))
-			for _, item := range items {
-				message.WriteString(fmt.Sprintf("   • %s", item.Product))
-				message.WriteString(fmt.Sprintf(" - %d %s\n", item.Count, item.Type))
-			}
-		}
+	// Display all items in one list (no category grouping)
+	for _, item := range allItems {
+		message.WriteString(fmt.Sprintf("   • %s - %d %s\n", item.Product, item.Count, item.Type))
 	}
 
 	telegramMsg := TelegramMessage{
@@ -98,24 +91,31 @@ func sendToPrinter(order *Order) error {
 		return fmt.Errorf("filial topilmadi")
 	}
 
-	// Mahsulotlarni kategoriya bo'yicha guruhlash
-	categoryItems := make(map[uint][]PrinterItem)
-	printerSuccess := false // Single status for the whole order
+	// Barcha mahsulotlarni bitta ro'yxatga yig'ish (kategoriyasiz)
+	var allItems []PrinterItem
+	categoryItems := make(map[uint][]PrinterItem) // Printer uchun kategoriya bo'yicha kerak bo'lsa
+	printerSuccess := false
 
 	for _, item := range order.Items {
 		product := findProductByID(item.ProductID)
+		printerItem := PrinterItem{
+			Product: item.Name,
+			Count:   item.Count,
+			Type:    item.Type,
+		}
+
+		// Telegram uchun barcha itemlar bitta ro'yxatda
+		allItems = append(allItems, printerItem)
+
+		// Printer uchun kategoriya bo'yicha (agar kerak bo'lsa)
 		if product != nil {
-			categoryItems[product.CategoryID] = append(categoryItems[product.CategoryID], PrinterItem{
-				Product: item.Name,
-				Count:   item.Count,
-				Type:    item.Type, // OrderItem dan Type ni olish
-			})
+			categoryItems[product.CategoryID] = append(categoryItems[product.CategoryID], printerItem)
 		}
 	}
 
 	allSuccess := true
 
-	// Har bir kategoriya uchun alohida chek yuborish
+	// Har bir kategoriya uchun alohida chek yuborish (printer uchun)
 	for categoryID, items := range categoryItems {
 		category := GetCategoryByID(categoryID)
 		if category == nil {
@@ -155,16 +155,15 @@ func sendToPrinter(order *Order) error {
 			allSuccess = false
 		}
 	}
-	//https://marxabo1.javohir-jasmina.uz/print
+
 	// Set overall printer success status
 	printerSuccess = allSuccess
 
-	// Send to Telegram after processing all categories
-	if len(categoryItems) > 0 {
-		err := sendToTelegram(order, categoryItems, printerSuccess)
+	// Send to Telegram with all items in one list
+	if len(allItems) > 0 {
+		err := sendToTelegram(order, allItems, printerSuccess)
 		if err != nil {
 			log.Printf("Telegram ga yuborishda xato: %v", err)
-			// Don't mark as failure since printer might have worked
 		}
 	}
 
