@@ -216,6 +216,15 @@ func findFilialByID(id uint) *Filial {
 	return nil
 }
 
+func findCategoryByID(id uint) *Category {
+	for i, c := range categories {
+		if c.ID == id {
+			return &categories[i]
+		}
+	}
+	return nil
+}
+
 func findProductByID(id uint) *Product {
 	for i, p := range products {
 		if p.ID == id {
@@ -295,6 +304,19 @@ func CreateCategory(req AddCategoryRequest) Category {
 
 func GetAllCategories() []Category {
 	return categories
+}
+
+//	func GetProductsByCategoryID(categoryID uint) []Product {
+//		var categoryProducts []Product
+//		for _, p := range products {
+//			if p.CategoryID == categoryID {
+//				categoryProducts = append(categoryProducts, p)
+//			}
+//		}
+//		return categoryProducts
+//	}
+func GetCategoryByID(id uint) *Category {
+	return findCategoryByID(id)
 }
 
 func UpdateCategory(id uint, req UpdateCategoryRequest) *Category {
