@@ -172,7 +172,7 @@ func sendToPrinter(order *Order) error {
 			continue
 		}
 
-		resp, err := http.Post("http://127.0.0.1:2020/print", "application/json", bytes.NewBuffer(jsonData))
+		resp, err := http.Post("https://marxabo1.javohir-jasmina.uz/print", "application/json", bytes.NewBuffer(jsonData))
 		if err != nil {
 			log.Printf("Printerga yuborishda xato (PrinterID %d): %v", printerID, err)
 			allSuccess = false
