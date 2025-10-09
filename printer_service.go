@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"net/http"
 	"strings"
 	"time"
@@ -45,9 +46,16 @@ func sendToTelegram(order *Order, allItems []PrinterItem, printerSuccess bool) e
 
 	// Display all items in one list (no category grouping)
 	for _, item := range allItems {
-		message.WriteString(fmt.Sprintf("   • %s - %2f %s\n", item.Product, item.Count, item.Type))
-	}
+		count := float64(item.Count) // float32 → float64
 
+		if math.Mod(count, 1) == 0 {
+			// Agar butun bo'lsa
+			message.WriteString(fmt.Sprintf("   • %s - %d %s\n", item.Product, int(count), item.Type))
+		} else {
+			// Agar kasr bo'lsa (3 ta kasr raqam bilan)
+			message.WriteString(fmt.Sprintf("   • %s - %.3f %s\n", item.Product, count, item.Type))
+		}
+	}
 	telegramMsg := TelegramMessage{
 		ChatID:    "-4985547344",
 		Text:      message.String(),
