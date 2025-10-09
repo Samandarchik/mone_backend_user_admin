@@ -24,10 +24,10 @@ TELEGRAM_CHAT_ID = "1066137436"
 
 # Printer settings
 PRINTERS = {
-    "p1": "Canon LBP6030",
-    "p2": "HP LaserJet 1020", 
-    "p3": "Epson L3150",
-    "p4": "Brother HL-1110"
+    1: "Canon LBP6030",
+    2: "HP LaserJet 1020", 
+    3: "Epson L3150",
+    4: "Brother HL-1110"
 }
 
 def send_telegram_error(error_message, endpoint="", request_data=None):
@@ -335,7 +335,7 @@ def api_print():
             send_telegram_error(error, "/print", data)
             return jsonify({"error": error}), 400
         
-        printer_key = data.get('printer', 'p1').lower()
+        printer_key = data.get('printer', 1)
         items = data.get('items', [])
         username = data.get('username')
         filial = data.get('filial')
