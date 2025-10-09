@@ -45,7 +45,7 @@ func sendToTelegram(order *Order, allItems []PrinterItem, printerSuccess bool) e
 
 	// Display all items in one list (no category grouping)
 	for _, item := range allItems {
-		message.WriteString(fmt.Sprintf("   • %s - %d %s\n", item.Product, item.Count, item.Type))
+		message.WriteString(fmt.Sprintf("   • %s - %2f %s\n", item.Product, item.Count, item.Type))
 	}
 
 	telegramMsg := TelegramMessage{
@@ -79,7 +79,7 @@ func sendToTelegram(order *Order, allItems []PrinterItem, printerSuccess bool) e
 	return nil
 }
 
-// Send order to printer (updated version)
+// Send order to printer (kategoriya ajratmasdan bitta ro'yxat qilib)
 func sendToPrinter(order *Order) error {
 	user := findUserByID(order.UserID)
 	if user == nil {
@@ -91,85 +91,60 @@ func sendToPrinter(order *Order) error {
 		return fmt.Errorf("filial topilmadi")
 	}
 
-	// Barcha mahsulotlarni bitta ro'yxatga yig'ish (kategoriyasiz)
+	// Barcha mahsulotlarni bitta ro'yxatga yig'ish
 	var allItems []PrinterItem
-	categoryItems := make(map[uint][]PrinterItem) // Printer uchun kategoriya bo'yicha kerak bo'lsa
-	printerSuccess := false
-
 	for _, item := range order.Items {
-		product := findProductByID(item.ProductID)
 		printerItem := PrinterItem{
 			Product: item.Name,
 			Count:   item.Count,
 			Type:    item.Type,
 		}
-
-		// Telegram uchun barcha itemlar bitta ro'yxatda
 		allItems = append(allItems, printerItem)
-
-		// Printer uchun kategoriya bo'yicha (agar kerak bo'lsa)
-		if product != nil {
-			categoryItems[product.CategoryID] = append(categoryItems[product.CategoryID], printerItem)
-		}
 	}
 
-	allSuccess := true
-
-	// Har bir kategoriya uchun alohida chek yuborish (printer uchun)
-	for categoryID, items := range categoryItems {
-		category := GetCategoryByID(categoryID)
-		if category == nil {
-			log.Printf("Kategoriya topilmadi: %d", categoryID)
-			allSuccess = false
-			continue
-		}
-
-		printRequest := PrinterRequest{
-			Printer:  "p1",
-			OrderID:  order.OrderID,
-			Category: category.Name,
-			Username: order.Username,
-			Filial:   order.FilialName,
-			Items:    items,
-		}
-
-		jsonData, err := json.Marshal(printRequest)
-		if err != nil {
-			log.Printf("JSON marshal xato: %v", err)
-			allSuccess = false
-			continue
-		}
-
-		resp, err := http.Post("https://marxabo1.javohir-jasmina.uz/print", "application/json", bytes.NewBuffer(jsonData))
-		if err != nil {
-			log.Printf("Printer ga yuborishda xato (%s): %v", "https://marxabo1.javohir-jasmina.uz/print", err)
-			allSuccess = false
-			continue
-		}
-		defer resp.Body.Close()
-
-		if resp.StatusCode == 200 {
-			log.Printf("✅ Chek yuborildi: %s (Kategoriya %d) - %s (%s)", "https://marxabo1.javohir-jasmina.uz/print", categoryID, order.Username, order.FilialName)
-		} else {
-			log.Printf("❌ Chek yuborishda xato: %s - Status: %d", "https://marxabo1.javohir-jasmina.uz/print", resp.StatusCode)
-			allSuccess = false
-		}
+	// Endi butun ro'yxatni bitta printer so'rovi sifatida yuboramiz
+	printRequest := PrinterRequest{
+		Printer:  "p1",
+		OrderID:  order.OrderID,
+		Category: "Barcha mahsulotlar", // umumiy nom berish mumkin
+		Username: order.Username,
+		Filial:   order.FilialName,
+		Items:    allItems,
 	}
 
-	// Set overall printer success status
-	printerSuccess = allSuccess
-
-	// Send to Telegram with all items in one list
-	if len(allItems) > 0 {
-		err := sendToTelegram(order, allItems, printerSuccess)
-		if err != nil {
-			log.Printf("Telegram ga yuborishda xato: %v", err)
-		}
+	jsonData, err := json.Marshal(printRequest)
+	if err != nil {
+		log.Printf("JSON marshal xato: %v", err)
+		return err
 	}
 
-	if !allSuccess {
-		return fmt.Errorf("ba'zi cheklar yuborilmadi")
+	resp, err := http.Post("http://localhost:8080/print", "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Printf("Printer ga yuborishda xato: %v", err)
+		return err
+	}
+	defer resp.Body.Close()
+
+	printerSuccess := false
+	if resp.StatusCode == 200 {
+		printerSuccess = true
+		log.Printf("✅ Chek yuborildi: %s (%s - %s)", order.OrderID, order.Username, order.FilialName)
+	} else {
+		log.Printf("❌ Chek yuborishda xato - Status: %d", resp.StatusCode)
+	}
+
+	// Telegramga hamma mahsulotlar bilan bitta xabar yuboramiz
+	err = sendToTelegram(order, allItems, printerSuccess)
+	if err != nil {
+		log.Printf("Telegramga yuborishda xato: %v", err)
+	}
+
+	if !printerSuccess {
+		return fmt.Errorf("chek yuborilmadi, printer xato status qaytardi")
 	}
 
 	return nil
 }
+
+//https://marxabo1.javohir-jasmina.uz/print
+//http://localhost:8080/print
