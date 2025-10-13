@@ -44,7 +44,7 @@ type Product struct {
 	CategoryID  uint   `json:"category_id"`
 	ImageUrl    string `json:"image_url"`
 	Type        string `json:"type"`
-	Discription string `json:"description"`
+	Ingredients string `json:"ingredients"`
 	Filials     []uint `json:"filials"`
 }
 
@@ -112,7 +112,7 @@ type AddProductRequest struct {
 	CategoryID  uint   `json:"category_id"`
 	ImageUrl    string `json:"image_url"`
 	Type        string `json:"type"`
-	Discription string `json:"description"`
+	Ingredients string `json:"ingredients"`
 	Filials     []uint `json:"filials"`
 }
 
@@ -122,7 +122,7 @@ type UpdateProductRequest struct {
 	Type        string `json:"type"`
 	CategoryID  uint   `json:"category_id"`
 	ImageUrl    string `json:"image_url"`
-	Discription string `json:"description"`
+	Ingredients string `json:"ingredients"`
 	Filials     []uint `json:"filials"`
 }
 
@@ -194,7 +194,7 @@ type GroupedProductsResponse struct {
 
 type ProductSimple struct {
 	ID          uint   `json:"id"`
-	Description string `json:"description"`
+	Ingredients string `json:"ingredients"`
 	Type        string `json:"type"`
 	Name        string `json:"name"`
 	ImageUrl    string `json:"image_url"`
@@ -203,7 +203,7 @@ type ProductSimple struct {
 type ProductDetails struct {
 	ID           uint     `json:"id"`
 	Name         string   `json:"name"`
-	Discription  string   `json:"description"`
+	Ingredients  string   `json:"ingredients"`
 	CategoryID   uint     `json:"category_id"`
 	Type         string   `json:"type"`
 	CategoryName string   `json:"category_name"`

@@ -662,7 +662,7 @@ func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 			ID:          product.ID,
 			Type:        product.Type,
 			Name:        product.Name,
-			Description: product.Discription,
+			Ingredients: product.Ingredients,
 			ImageUrl:    product.ImageUrl,
 		})
 	}
@@ -691,6 +691,7 @@ func getAllProductsHandler(w http.ResponseWriter, r *http.Request) {
 			Name:        product.Name,
 			Type:        product.Type,
 			CategoryID:  product.CategoryID,
+			Ingredients: product.Ingredients,
 			Filials:     product.Filials,
 			ImageUrl:    product.ImageUrl,
 			FilialNames: []string{},

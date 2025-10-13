@@ -382,7 +382,7 @@ func CreateProduct(req AddProductRequest) Product {
 		Type:        req.Type,
 		CategoryID:  req.CategoryID,
 		ImageUrl:    req.ImageUrl,
-		Discription: req.Discription,
+		Ingredients: req.Ingredients,
 		Filials:     req.Filials,
 	}
 	products = append(products, product)
@@ -407,9 +407,9 @@ func UpdateProduct(id uint, req UpdateProductRequest) *Product {
 	product.Name = req.Name
 	product.Type = req.Type
 	product.CategoryID = req.CategoryID
+	product.Ingredients = req.Ingredients
 	product.ImageUrl = req.ImageUrl
 	product.Filials = req.Filials
-	product.Discription = req.Discription
 	saveProducts()
 	return product
 }
