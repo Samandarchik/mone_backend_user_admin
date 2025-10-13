@@ -193,15 +193,17 @@ type GroupedProductsResponse struct {
 }
 
 type ProductSimple struct {
-	ID       uint   `json:"id"`
-	Type     string `json:"type"`
-	Name     string `json:"name"`
-	ImageUrl string `json:"image_url"`
+	ID          uint   `json:"id"`
+	Description string `json:"description"`
+	Type        string `json:"type"`
+	Name        string `json:"name"`
+	ImageUrl    string `json:"image_url"`
 }
 
 type ProductDetails struct {
 	ID           uint     `json:"id"`
 	Name         string   `json:"name"`
+	Discription  string   `json:"description"`
 	CategoryID   uint     `json:"category_id"`
 	Type         string   `json:"type"`
 	CategoryName string   `json:"category_name"`
