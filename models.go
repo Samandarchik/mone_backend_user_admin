@@ -39,12 +39,13 @@ type User struct {
 }
 
 type Product struct {
-	ID         uint   `json:"id"`
-	Name       string `json:"name"`
-	CategoryID uint   `json:"category_id"`
-	ImageUrl   string `json:"image_url"`
-	Type       string `json:"type"`
-	Filials    []uint `json:"filials"`
+	ID          uint   `json:"id"`
+	Name        string `json:"name"`
+	CategoryID  uint   `json:"category_id"`
+	ImageUrl    string `json:"image_url"`
+	Type        string `json:"type"`
+	Discription string `json:"description"`
+	Filials     []uint `json:"filials"`
 }
 
 type Order struct {
@@ -106,21 +107,23 @@ type UpdateCategoryRequest struct {
 }
 
 type AddProductRequest struct {
-	ID         uint   `json:"id"`
-	Name       string `json:"name"`
-	CategoryID uint   `json:"category_id"`
-	ImageUrl   string `json:"image_url"`
-	Type       string `json:"type"`
-	Filials    []uint `json:"filials"`
+	ID          uint   `json:"id"`
+	Name        string `json:"name"`
+	CategoryID  uint   `json:"category_id"`
+	ImageUrl    string `json:"image_url"`
+	Type        string `json:"type"`
+	Discription string `json:"description"`
+	Filials     []uint `json:"filials"`
 }
 
 type UpdateProductRequest struct {
-	ID         uint   `json:"id"`
-	Name       string `json:"name"`
-	Type       string `json:"type"`
-	CategoryID uint   `json:"category_id"`
-	ImageUrl   string `json:"image_url"`
-	Filials    []uint `json:"filials"`
+	ID          uint   `json:"id"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	CategoryID  uint   `json:"category_id"`
+	ImageUrl    string `json:"image_url"`
+	Discription string `json:"description"`
+	Filials     []uint `json:"filials"`
 }
 
 type AssignFilialRequest struct {

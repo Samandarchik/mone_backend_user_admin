@@ -377,12 +377,13 @@ func DeleteCategoryWithProducts(categoryID uint) bool {
 // ============= PRODUCTS =============
 func CreateProduct(req AddProductRequest) Product {
 	product := Product{
-		ID:         nextProductID,
-		Name:       req.Name,
-		Type:       req.Type,
-		CategoryID: req.CategoryID,
-		ImageUrl:   req.ImageUrl,
-		Filials:    req.Filials,
+		ID:          nextProductID,
+		Name:        req.Name,
+		Type:        req.Type,
+		CategoryID:  req.CategoryID,
+		ImageUrl:    req.ImageUrl,
+		Discription: req.Discription,
+		Filials:     req.Filials,
 	}
 	products = append(products, product)
 	nextProductID++
@@ -408,6 +409,7 @@ func UpdateProduct(id uint, req UpdateProductRequest) *Product {
 	product.CategoryID = req.CategoryID
 	product.ImageUrl = req.ImageUrl
 	product.Filials = req.Filials
+	product.Discription = req.Discription
 	saveProducts()
 	return product
 }
