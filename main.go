@@ -11,11 +11,12 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"github.com/adrium/goheif" // HEIC/HEIF support
+	// "github.com/adrium/goheif" // HEIC/HEIF support
 	"github.com/gorilla/mux"
 	"github.com/nfnt/resize"
 	_ "golang.org/x/image/webp" // WebP support
@@ -280,6 +281,7 @@ func sendBackupToTelegram() error {
 // ////////////////////////////////////////////////////
 // Image upload handler
 // ////////////////////////////////////////////////////
+
 func uploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Faqat POST request!", http.StatusMethodNotAllowed)
@@ -299,55 +301,84 @@ func uploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close()
 
+	// uploads papkasini yaratish
 	err = os.MkdirAll("uploads", os.ModePerm)
 	if err != nil {
 		http.Error(w, "Papka yaratishda xatolik: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	// Faylning kengaytmasini tekshirish
 	ext := strings.ToLower(filepath.Ext(handler.Filename))
+	baseFilename := strings.TrimSuffix(handler.Filename, filepath.Ext(handler.Filename))
+	tempPath := fmt.Sprintf("uploads/%s%s", baseFilename, ext)
+	out, err := os.Create(tempPath)
+	if err != nil {
+		http.Error(w, "Faylni yaratishda xatolik: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// yuklangan faylni vaqtincha saqlaymiz
+	_, err = io.Copy(out, file)
+	out.Close()
+	if err != nil {
+		http.Error(w, "Faylni saqlashda xatolik: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	var img image.Image
-	var format string
 
-	// HEIC/HEIF formatni alohida qayta ishlash
+	// HEIC fayllarni avval JPEGga o‘tkazamiz
 	if ext == ".heic" || ext == ".heif" {
-		// Faylni boshidan o'qish uchun qayta ochish
-		file.Seek(0, 0)
-		img, err = goheif.Decode(file)
+		jpgPath, err := convertHeicToJpeg(tempPath)
 		if err != nil {
-			http.Error(w, "HEIC rasmni decode qilishda xatolik: "+err.Error(), http.StatusBadRequest)
+			http.Error(w, "HEIC konversiyada xatolik: "+err.Error(), http.StatusBadRequest)
 			return
 		}
-		format = "heic"
+
+		file, err = os.Open(jpgPath)
+		if err != nil {
+			http.Error(w, "JPEG faylni ochishda xatolik: "+err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer file.Close()
+
+		img, _, err = image.Decode(file)
+		if err != nil {
+			http.Error(w, "JPEG decode qilishda xatolik: "+err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		// HEIC faylni o‘chirib tashlaymiz
+		os.Remove(tempPath)
+		tempPath = jpgPath
 	} else {
-		// Boshqa formatlar uchun standart decoder
-		file.Seek(0, 0)
-		img, format, err = image.Decode(file)
+		file, err = os.Open(tempPath)
+		if err != nil {
+			http.Error(w, "Faylni o‘qishda xatolik: "+err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer file.Close()
+
+		img, _, err = image.Decode(file)
 		if err != nil {
 			http.Error(w, "Rasmni decode qilishda xatolik: "+err.Error(), http.StatusBadRequest)
 			return
 		}
 	}
 
-	log.Println("Image format:", format)
+	log.Println("Image yuklandi:", tempPath)
 
 	// Rasmni kichraytirish
 	newImg := resize.Resize(1024, 0, img, resize.Lanczos3)
 
-	// Fayl nomini yaratish (kengaytmasiz)
-	baseFilename := strings.TrimSuffix(handler.Filename, filepath.Ext(handler.Filename))
-	savePath := fmt.Sprintf("uploads/%s.jpg", baseFilename)
-
-	out, err := os.Create(savePath)
+	savePath := fmt.Sprintf("uploads/%s_resized.jpg", baseFilename)
+	out, err = os.Create(savePath)
 	if err != nil {
-		http.Error(w, "Faylni yaratishda xatolik: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Rasmni yaratishda xatolik: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer out.Close()
 
-	// JPEG sifatida saqlash
 	opts := &jpeg.Options{Quality: 85}
 	err = jpeg.Encode(out, newImg, opts)
 	if err != nil {
@@ -359,4 +390,15 @@ func uploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(fmt.Sprintf(`{"message":"Yuklandi","url":"%s"}`, imageURL)))
+}
+
+// HEIC konversiya funksiyasi (CLI orqali)
+func convertHeicToJpeg(heicPath string) (string, error) {
+	jpgPath := strings.TrimSuffix(heicPath, filepath.Ext(heicPath)) + ".jpg"
+	cmd := exec.Command("heif-convert", heicPath, jpgPath)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return "", fmt.Errorf("heif-convert xatolik: %v\n%s", err, string(output))
+	}
+	return jpgPath, nil
 }
